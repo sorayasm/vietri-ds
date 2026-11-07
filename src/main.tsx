@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { CssBaseline, ThemeProvider, Typography, Box } from "@mui/material";
+import { CssBaseline, ThemeProvider, Box, Stack } from "@mui/material";
 import { editorialTheme } from "./theme";
+import { Button, Typography } from "./components";
 import "./styles.css";
 
 function App() {
@@ -16,11 +17,19 @@ function App() {
         <Typography sx={{ maxWidth: 650, mt: 4 }}>
           A themeable React component system built with TypeScript and MUI.
         </Typography>
+        <Stack direction="row" spacing={2} sx={{ mt: 6 }}>
+          <Button size="large">Explore</Button>
+          <Button size="large" variant="outlined">
+            Documentation
+          </Button>
+        </Stack>
       </Box>
     </ThemeProvider>
   );
 }
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode><App /></React.StrictMode>
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
 );

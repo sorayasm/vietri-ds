@@ -21,7 +21,9 @@ A themeable design system built with React, TypeScript and MUI. It is the shared
 | `streaming`   | Dark  | Streaming application           |
 | `observatory` | Light | Data / cultural platform        |
 
-`streaming` and `observatory` extend `editorial` with `createTheme(editorialTheme, ...)`, so they inherit typography, spacing and shape and only override what changes.
+All three themes are built from the same `baseOptions` (typography, spacing, shape, breakpoints) and only differ in their palette. Every value comes from `src/theme/tokens.ts`, so changing a brand color means editing one file.
+
+Tokens are also available inside components through `theme.vietri` (typed via MUI module augmentation).
 
 ```tsx
 import { ThemeProvider, CssBaseline } from "@mui/material";
@@ -32,6 +34,32 @@ import { streamingTheme } from "./theme";
   <App />
 </ThemeProvider>;
 ```
+
+## Components
+
+Use the theme switcher in the Storybook toolbar to see every component in the three themes.
+
+```tsx
+import { Button, Typography } from "./components";
+
+<Typography variant="h2">Selected work</Typography>
+<Button variant="contained" color="primary">Explore</Button>
+```
+
+Components are thin wrappers over MUI. The brand look (radius, focus ring, no elevation) lives in `src/theme/components.ts`, so it is shared by all themes.
+
+## Brand colors
+
+| Token    | Hex       |
+| -------- | --------- |
+| `navy`   | `#131B2E` |
+| `sky`    | `#38BDF8` |
+| `purple` | `#481374` |
+| `mist`   | `#E2E8F0` |
+| `white`  | `#FFFFFF` |
+| `black`  | `#000000` |
+
+Themes are tested for WCAG AA contrast (4.5:1) on body text and buttons. A few derived neutrals (`slate`, `slateLight`, `navyRaised`) exist only to build hierarchy while keeping that contrast.
 
 ## Stack
 
@@ -65,13 +93,18 @@ npm run dev
 vietri-ds/
 ├── .storybook/        # Storybook config (main.ts, preview.tsx)
 ├── src/
-│   ├── test/          # Vitest setup
+│   ├── components/    # Button, Typography (each with stories and tests)
+│   ├── test/          # Vitest setup and renderWithTheme helper
 │   ├── theme/         # tokens and the three themes
-│   │   ├── tokens.ts
+│   │   ├── tokens.ts         # brand colors, typography, shadows, breakpoints
+│   │   ├── base.ts           # options shared by all themes
+│   │   ├── components.ts     # MUI component overrides (brand look)
+│   │   ├── augmentation.ts   # typed theme.vietri
 │   │   ├── editorial.ts
 │   │   ├── streaming.ts
 │   │   ├── observatory.ts
 │   │   └── index.ts
+│   ├── index.ts       # library entry (components + themes)
 │   ├── main.tsx       # demo app
 │   └── styles.css
 ├── index.html
@@ -89,14 +122,14 @@ vietri-ds/
 
 **Foundations**
 
-- [ ] Complete tokens (colors, typography, shadows, breakpoints)
-- [ ] Typed theme extension (MUI module augmentation)
-- [ ] Voxmater brand palette and typefaces
+- [x] Complete tokens (colors, typography, shadows, breakpoints)
+- [x] Typed theme extension (MUI module augmentation)
+- [x] Voxmater brand palette (typeface: Inter)
 
 **Components**
 
-- [ ] Button
-- [ ] Typography
+- [x] Button
+- [x] Typography
 - [ ] Card
 - [ ] Input
 - [ ] Navigation
@@ -105,7 +138,7 @@ vietri-ds/
 **Documentation and delivery**
 
 - [ ] Storybook documentation
-- [ ] Theme switcher in Storybook
+- [x] Theme switcher in Storybook
 - [ ] Library build and exports
 - [ ] Streaming application
 - [ ] Observatory application

@@ -1,11 +1,17 @@
-import { editorialTheme } from "./editorial";
 import { createTheme } from "@mui/material/styles";
+import { baseOptions } from "./base";
+import { tokens } from "./tokens";
 
-export const observatoryTheme = createTheme(editorialTheme, {
+const { color } = tokens;
+
+export const observatoryTheme = createTheme({
+  ...baseOptions,
   palette: {
     mode: "light",
-    background: { default: "#F7F7F7", paper: "#FFFFFF" },
-    primary: { main: "#243B53" },
-    secondary: { main: "#829AB1" },
+    primary: { main: color.purple, contrastText: color.white },
+    secondary: { main: color.sky, contrastText: color.navy },
+    background: { default: color.mist, paper: color.white },
+    text: { primary: color.navy, secondary: color.slate },
+    divider: "rgba(19, 27, 46, 0.12)",
   },
 });
