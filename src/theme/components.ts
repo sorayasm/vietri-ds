@@ -19,6 +19,18 @@ export const components: ThemeOptions["components"] = {
     },
   },
 
+  MuiLink: {
+    styleOverrides: {
+      root: ({ theme }) => ({
+        "&:focus-visible": {
+          outline: `2px solid ${theme.palette.primary.main}`,
+          outlineOffset: 3,
+          borderRadius: tokens.radius.sm,
+        },
+      }),
+    },
+  },
+
   MuiCard: {
     defaultProps: { variant: "outlined" },
     styleOverrides: {

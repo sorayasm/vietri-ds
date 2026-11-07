@@ -12,3 +12,9 @@ export {
 export type { CardProps } from "./Card";
 export { Input } from "./Input";
 export type { InputProps } from "./Input";
+export { NavBar } from "./NavBar";
+export type { NavBarProps, NavLink } from "./NavBar";
+export { LanguageSwitch } from "./LanguageSwitch";
+export type { LanguageSwitchProps, LanguageOption } from "./LanguageSwitch";
+export { Tabs, Tab } from "./Tabs";
+export type { TabsProps, TabProps } from "./Tabs";

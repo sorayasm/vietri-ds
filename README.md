@@ -46,7 +46,15 @@ import { Button, Card, CardContent, Input, Typography } from "./components";
 <Button variant="contained" color="primary">Explore</Button>
 <Input label="Email" helperText="We only use it to reply." />
 <Card><CardContent>Project</CardContent></Card>
+
+<NavBar
+  brand="Soraya Sacaan"
+  links={[{ label: "About", href: "#about" }]}
+  actions={<LanguageSwitch value={lang} onChange={setLang} />}
+/>
 ```
+
+`NavBar` shows inline links on desktop and a drawer menu below the `md` breakpoint. All labels are configurable props, so it works in both languages of the portfolio.
 
 Components are thin wrappers over MUI. The brand look (radius, focus ring, outlined cards, input borders with 3:1 contrast) lives in `src/theme/components.ts`, so it is shared by all themes.
 
@@ -95,7 +103,7 @@ npm run dev
 vietri-ds/
 ├── .storybook/        # Storybook config (main.ts, preview.tsx)
 ├── src/
-│   ├── components/    # Button, Typography, Card, Input (each with stories and tests)
+│   ├── components/    # Button, Typography, Card, Input, NavBar, LanguageSwitch, Tabs (each with stories and tests)
 │   ├── test/          # Vitest setup and renderWithTheme helper
 │   ├── theme/         # tokens and the three themes
 │   │   ├── tokens.ts         # brand colors, typography, shadows, breakpoints
@@ -134,7 +142,7 @@ vietri-ds/
 - [x] Typography
 - [x] Card
 - [x] Input
-- [ ] Navigation
+- [x] Navigation (NavBar, LanguageSwitch, Tabs)
 - [ ] Data components
 
 **Documentation and delivery**
