@@ -40,13 +40,15 @@ import { streamingTheme } from "./theme";
 Use the theme switcher in the Storybook toolbar to see every component in the three themes.
 
 ```tsx
-import { Button, Typography } from "./components";
+import { Button, Card, CardContent, Input, Typography } from "./components";
 
 <Typography variant="h2">Selected work</Typography>
 <Button variant="contained" color="primary">Explore</Button>
+<Input label="Email" helperText="We only use it to reply." />
+<Card><CardContent>Project</CardContent></Card>
 ```
 
-Components are thin wrappers over MUI. The brand look (radius, focus ring, no elevation) lives in `src/theme/components.ts`, so it is shared by all themes.
+Components are thin wrappers over MUI. The brand look (radius, focus ring, outlined cards, input borders with 3:1 contrast) lives in `src/theme/components.ts`, so it is shared by all themes.
 
 ## Brand colors
 
@@ -93,7 +95,7 @@ npm run dev
 vietri-ds/
 ├── .storybook/        # Storybook config (main.ts, preview.tsx)
 ├── src/
-│   ├── components/    # Button, Typography (each with stories and tests)
+│   ├── components/    # Button, Typography, Card, Input (each with stories and tests)
 │   ├── test/          # Vitest setup and renderWithTheme helper
 │   ├── theme/         # tokens and the three themes
 │   │   ├── tokens.ts         # brand colors, typography, shadows, breakpoints
@@ -130,8 +132,8 @@ vietri-ds/
 
 - [x] Button
 - [x] Typography
-- [ ] Card
-- [ ] Input
+- [x] Card
+- [x] Input
 - [ ] Navigation
 - [ ] Data components
 
