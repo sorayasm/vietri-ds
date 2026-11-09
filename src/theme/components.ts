@@ -76,4 +76,17 @@ export const components: ThemeOptions["components"] = {
       }),
     },
   },
+
+  MuiTableCell: {
+    styleOverrides: {
+      root: ({ theme }) => ({
+        borderBottomColor: theme.palette.divider,
+      }),
+      head: ({ theme }) => ({
+        fontWeight: tokens.typography.fontWeight.semibold,
+        color: theme.palette.text.primary,
+        borderBottom: `2px solid ${theme.palette.text.primary}`,
+      }),
+    },
+  },
 };
