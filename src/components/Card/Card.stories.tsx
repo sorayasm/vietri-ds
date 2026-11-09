@@ -72,10 +72,9 @@ export const WithMediaAndActions: Story = {
 };
 
 export const Clickable: Story = {
-  args: { onClick: fn() },
   render: (args) => (
     <Card {...args}>
-      <CardActionArea onClick={args.onClick}>
+      <CardActionArea onClick={fn()}>
         <CardMedia component="div" sx={{ height: 160, bgcolor: "secondary.main" }} />
         <CardContent>
           <Typography variant="h5" gutterBottom>
