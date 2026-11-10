@@ -16,7 +16,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: { layout: "fullscreen" },
   args: {
-    brand: "Soraya Sacaan",
+    brand: "Vietri Design System",
     brandHref: "#top",
     links,
   },

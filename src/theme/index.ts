@@ -12,6 +12,10 @@ export {
   observatoryColors,
 } from "./palettes";
 export type { ThemeColors, StatusColors } from "./palettes";
-export { categoryPalette, createCategoryColors } from "./categorical";
+export {
+  categoryPalette,
+  observatoryCategoryPalette,
+  createCategoryColors,
+} from "./categorical";
 export type { CategoryColor } from "./categorical";
 export type { VietriExtras } from "./augmentation";

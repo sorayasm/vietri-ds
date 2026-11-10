@@ -1,6 +1,6 @@
 # Vietri DS
 
-A themeable design system built with React, TypeScript and MUI. It is the shared UI foundation for the projects in the [Soraya Sacaan](https://sorayasacaan.com) portfolio: the portfolio site, the streaming platform and the Mujeres del Blues Observatory.
+A themeable design system built with React, TypeScript and MUI. It is the shared UI foundation for the projects in the [Soraya Sacaan](https://sorayasacaan.com) portfolio: the portfolio site, the streaming platform and the Observatorio MDB.
 
 > **Status:** early development (v0.1). Foundations, themes, tooling and the first set of components are in place.
 
@@ -19,7 +19,7 @@ A themeable design system built with React, TypeScript and MUI. It is the shared
 | ------------- | ----- | --------------------------- |
 | `editorial`   | Light | Portfolio (Soraya Sacaan)   |
 | `streaming`   | Dark  | El Blues es Femenino        |
-| `observatory` | Light | Mujeres del Blues Observatory |
+| `observatory` | Light | Observatorio MDB |
 
 All three themes are built from the same `baseOptions` (typography, spacing, shape, breakpoints, component styles) and only differ in their palette. Each palette lives in `src/theme/palettes.ts`, so changing a color means editing one file.
 
@@ -62,7 +62,9 @@ They reach components through `theme.vietri.gradient`:
 
 ## Categorical colors
 
-`createCategoryColors(["USA", "Chile", …])` assigns a stable color to each category (country, role, decade). Every text/background pair meets AAA contrast (7:1), and the category name is always shown as text, so color is never the only cue. Use it with `CategoryChip`.
+`createCategoryColors(["USA", "Chile", …])` assigns a stable color to each category (country, role, decade). The category name is always shown as text, so color is never the only cue. Use it with `CategoryChip` and `ProfileCard`.
+
+There are two palettes. The default one has soft tints (text at AAA, 7:1). `observatoryCategoryPalette` uses the seven brand fills of the Observatory, with dark or white text chosen for AA: `createCategoryColors(keys, observatoryCategoryPalette)`. Pass the keys ordered by importance (for example countries by number of profiles); with more than seven categories the colors repeat.
 
 ## Components
 
@@ -72,9 +74,9 @@ Use the theme switcher in the Storybook toolbar to see every component in the th
 | ---------------- | -------------------------------------------------------------------------- |
 | Basics           | `Button`, `Typography`, `Card`, `Input`, `Select`, `Chip`, `CategoryChip`   |
 | Navigation       | `NavBar`, `LanguageSwitch`, `Tabs`, `SkipLink`                              |
-| Layout & content | `Footer`, `SectionHeader`                                                   |
+| Layout & content | `Footer`, `SectionHeader`, `Hero`, `FeatureCard`, `Steps`, `Timeline`      |
 | Overlays         | `Dialog`, `Drawer`                                                          |
-| Data             | `StatCard`, `DataTable`, `BarChart`                                         |
+| Data & people    | `StatCard`, `DataTable`, `BarChart`, `ProfileCard`                          |
 | Utilities        | `Icon` (lucide-react), `CopyField`, `VisuallyHidden`                        |
 
 ```tsx
@@ -92,7 +94,7 @@ import {
 
 <SkipLink href="#content" />
 <NavBar
-  brand="Soraya Sacaan"
+  brand="Vietri Design System"
   links={[{ label: "About", href: "#about" }]}
   actions={<LanguageSwitch value={lang} onChange={setLang} />}
 />
@@ -101,7 +103,7 @@ import {
   <Button startIcon={<Icon icon={icons.ArrowRight} />}>Explore</Button>
   <Input label="Email" helperText="We only use it to reply." />
 </main>
-<Footer title="Soraya Sacaan" legal="© 2026" />
+<Footer title="Vietri Design System" legal="© 2026" />
 ```
 
 Components are thin wrappers over MUI where possible. The brand look (radius, focus ring, outlined cards, gradients, input borders with 3:1 contrast) lives in `src/theme/components.ts`, so it is shared by all themes.
@@ -200,7 +202,7 @@ vietri-ds/
 - [x] Navigation (NavBar, LanguageSwitch, Tabs, SkipLink)
 - [x] Data components (StatCard, DataTable, BarChart)
 - [x] Shared components (Icon, Chip, Footer, SectionHeader, Select, Dialog, Drawer, CopyField)
-- [ ] Observatory components (Timeline, FeatureCard, Steps, Hero, ProfileCard)
+- [x] Observatory components (Hero, FeatureCard, Steps, Timeline, ProfileCard)
 - [ ] Streaming components (MediaCard, ContentRail, VideoEmbed, EpisodeList, PlaylistCard)
 
 **Documentation and delivery**

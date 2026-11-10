@@ -39,7 +39,7 @@
     "axe-core": "^4.10.0",
     "lucide-react": "^1.41.0"
   },
-  "description": "A themeable React and MUI design system for the Soraya Sacaan portfolio projects.",
+  "description": "A themeable React and MUI design system for the Vietri Design System portfolio projects.",
   "license": "UNLICENSED",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",

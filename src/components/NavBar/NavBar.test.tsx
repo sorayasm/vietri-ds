@@ -31,8 +31,8 @@ afterEach(() => {
 describe("NavBar on desktop", () => {
   it("shows the brand and the links inside a navigation", () => {
     mockDesktop();
-    renderWithTheme(<NavBar brand="Soraya Sacaan" links={links} />);
-    expect(screen.getByRole("link", { name: "Soraya Sacaan" })).toBeInTheDocument();
+    renderWithTheme(<NavBar brand="Vietri Design System" links={links} />);
+    expect(screen.getByRole("link", { name: "Vietri Design System" })).toBeInTheDocument();
     expect(screen.getByRole("navigation", { name: "Main" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "About" })).toHaveAttribute(
       "href",
@@ -42,7 +42,7 @@ describe("NavBar on desktop", () => {
 
   it("marks the current page with aria-current", () => {
     mockDesktop();
-    renderWithTheme(<NavBar brand="Soraya Sacaan" links={links} />);
+    renderWithTheme(<NavBar brand="Vietri Design System" links={links} />);
     expect(screen.getByRole("link", { name: "Projects" })).toHaveAttribute(
       "aria-current",
       "page"
@@ -54,14 +54,14 @@ describe("NavBar on desktop", () => {
 
   it("does not show the menu button", () => {
     mockDesktop();
-    renderWithTheme(<NavBar brand="Soraya Sacaan" links={links} />);
+    renderWithTheme(<NavBar brand="Vietri Design System" links={links} />);
     expect(screen.queryByRole("button", { name: "Menu" })).not.toBeInTheDocument();
   });
 
   it("shows the extra actions", () => {
     mockDesktop();
     renderWithTheme(
-      <NavBar brand="Soraya Sacaan" links={links} actions={<button>EN</button>} />
+      <NavBar brand="Vietri Design System" links={links} actions={<button>EN</button>} />
     );
     expect(screen.getByRole("button", { name: "EN" })).toBeInTheDocument();
   });
@@ -69,7 +69,7 @@ describe("NavBar on desktop", () => {
 
 describe("NavBar on mobile", () => {
   it("hides the links until the menu is opened", async () => {
-    renderWithTheme(<NavBar brand="Soraya Sacaan" links={links} />);
+    renderWithTheme(<NavBar brand="Vietri Design System" links={links} />);
     expect(screen.queryByRole("link", { name: "About" })).not.toBeInTheDocument();
 
     const toggle = screen.getByRole("button", { name: "Menu" });
@@ -81,7 +81,7 @@ describe("NavBar on mobile", () => {
   });
 
   it("closes the menu with the close button", async () => {
-    renderWithTheme(<NavBar brand="Soraya Sacaan" links={links} />);
+    renderWithTheme(<NavBar brand="Vietri Design System" links={links} />);
     await userEvent.click(screen.getByRole("button", { name: "Menu" }));
     await userEvent.click(await screen.findByRole("button", { name: "Close menu" }));
     await waitFor(() =>
@@ -91,7 +91,7 @@ describe("NavBar on mobile", () => {
 
   it("allows changing the menu labels", () => {
     renderWithTheme(
-      <NavBar brand="Soraya Sacaan" links={links} menuLabel="Open navigation" closeLabel="Close navigation" />
+      <NavBar brand="Vietri Design System" links={links} menuLabel="Open navigation" closeLabel="Close navigation" />
     );
     expect(screen.getByRole("button", { name: "Open navigation" })).toBeInTheDocument();
   });

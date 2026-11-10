@@ -4,7 +4,7 @@
  * Each theme (editorial, streaming, observatory) has its own identity:
  *   - editorial    → the portfolio: black, white and gold
  *   - streaming    → "El Blues es Femenino": deep purple, violet, magenta, orange
- *   - observatory  → the Mujeres del Blues Observatory: teal, cyan, amber, coral, red, purple
+ *   - observatory  → the Observatorio MDB: teal, cyan, amber, coral, red, purple
  *
  * Every pair that carries text meets WCAG AA (4.5:1). Brand colors that are
  * too light or too dark to carry text on their own (gold on white, violet on

@@ -54,7 +54,7 @@ export const WithMediaAndActions: Story = {
       <CardMedia component="div" sx={{ height: 160, bgcolor: "primary.main" }} />
       <CardContent>
         <Typography variant="h5" gutterBottom>
-          Mujeres del Blues Observatory
+          Observatorio MDB
         </Typography>
         <Typography variant="body2" color="text.secondary">
           Data visualization and storytelling about blues careers.

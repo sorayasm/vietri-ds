@@ -1,6 +1,10 @@
 import { describe, it, expect } from "vitest";
 import { getContrastRatio } from "@mui/material/styles";
-import { categoryPalette, createCategoryColors } from "./categorical";
+import {
+  categoryPalette,
+  createCategoryColors,
+  observatoryCategoryPalette,
+} from "./categorical";
 
 describe("categorical palette", () => {
   it("has at least 10 colors", () => {
@@ -48,5 +52,31 @@ describe("createCategoryColors", () => {
     const many = Array.from({ length: categoryPalette.length + 1 }, (_v, i) => `c${i}`);
     const colors = createCategoryColors(many);
     expect(colors[many[many.length - 1]]).toEqual(colors[many[0]]);
+  });
+});
+
+describe("observatoryCategoryPalette", () => {
+  it("has the seven colors of the Observatory palette", () => {
+    expect(observatoryCategoryPalette).toHaveLength(7);
+  });
+
+  it.each(observatoryCategoryPalette.map((color, index) => [index, color] as const))(
+    "color %i: text meets AA (4.5:1) on its fill",
+    (_index, color) => {
+      expect(getContrastRatio(color.fg, color.bg)).toBeGreaterThanOrEqual(4.5);
+    }
+  );
+
+  it.each(observatoryCategoryPalette.map((color, index) => [index, color] as const))(
+    "color %i: the dot meets 3:1 on white",
+    (_index, color) => {
+      expect(getContrastRatio(color.dot, "#FFFFFF")).toBeGreaterThanOrEqual(3);
+    }
+  );
+
+  it("createCategoryColors accepts another palette", () => {
+    const colors = createCategoryColors(["USA", "Chile"], observatoryCategoryPalette);
+    expect(colors.USA).toEqual(observatoryCategoryPalette[0]);
+    expect(colors.Chile).toEqual(observatoryCategoryPalette[1]);
   });
 });

@@ -46,3 +46,15 @@ export type { CopyFieldProps } from "./CopyField";
 export { SkipLink } from "./SkipLink";
 export type { SkipLinkProps } from "./SkipLink";
 export { VisuallyHidden } from "./VisuallyHidden";
+
+// Observatory components
+export { Hero } from "./Hero";
+export type { HeroProps } from "./Hero";
+export { FeatureCard } from "./FeatureCard";
+export type { FeatureCardProps } from "./FeatureCard";
+export { Steps } from "./Steps";
+export type { StepsProps, Step } from "./Steps";
+export { Timeline } from "./Timeline";
+export type { TimelineProps, TimelineEntry } from "./Timeline";
+export { ProfileCard } from "./ProfileCard";
+export type { ProfileCardProps, ProfileTag } from "./ProfileCard";

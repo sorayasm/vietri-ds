@@ -2,7 +2,7 @@ import type { ReactElement } from "react";
 import { describe, it } from "vitest";
 import { renderWithTheme } from "./test/utils";
 import { expectNoA11yViolations } from "./test/a11y";
-import { createCategoryColors } from "./theme";
+import { createCategoryColors, observatoryCategoryPalette } from "./theme";
 import {
   BarChart,
   Button,
@@ -15,20 +15,27 @@ import {
   DataTable,
   Dialog,
   Drawer,
+  FeatureCard,
   Footer,
+  Hero,
   Input,
   LanguageSwitch,
   NavBar,
+  ProfileCard,
   SectionHeader,
   Select,
   SkipLink,
   StatCard,
+  Steps,
   Tab,
   Tabs,
+  Timeline,
   Typography,
+  icons,
 } from "./components";
 
 const colors = createCategoryColors(["Chile", "USA"]);
+const observatoryColors = createCategoryColors(["USA", "Singer"], observatoryCategoryPalette);
 
 /** Components shown inside the page. */
 const inline: [string, () => ReactElement][] = [
@@ -78,7 +85,7 @@ const inline: [string, () => ReactElement][] = [
     "NavBar",
     () => (
       <NavBar
-        brand="Soraya Sacaan"
+        brand="Vietri Design System"
         links={[
           { label: "Projects", href: "#projects", current: true },
           { label: "Contact", href: "#contact" },
@@ -167,5 +174,48 @@ describe("accessibility (axe, WCAG 2.2 A and AA)", () => {
   it.each(overlays)("open %s has no violations", async (_name, build) => {
     renderWithTheme(build());
     await expectNoA11yViolations(document.body);
+  });
+});
+
+/** Observatory components. */
+const observatory: [string, () => ReactElement][] = [
+  ["Hero", () => <Hero title="Women in the blues" eyebrow="Observatory" description="176 profiles" actions={<Button>Explore</Button>} />],
+  ["FeatureCard", () => <FeatureCard icon={icons.ShieldCheck} title="Verified sources" description="Every profile cites its sources." />],
+  [
+    "Steps",
+    () => (
+      <Steps
+        ariaLabel="Methodology"
+        steps={[
+          { title: "Collect sources", description: "Books and archives" },
+          { title: "Human review", description: "Every data point is checked" },
+        ]}
+      />
+    ),
+  ],
+  [
+    "Timeline",
+    () => (
+      <Timeline
+        ariaLabel="Timeline by decade"
+        entries={[
+          { id: "decade-1920s", label: "1920s", content: <p>Mamie Smith</p> },
+          { id: "decade-1950s", label: "1950s", content: <p>Big Mama Thornton</p> },
+        ]}
+      />
+    ),
+  ],
+  [
+    "ProfileCard (static)",
+    () => <ProfileCard name="Mamie Smith" subtitle="The first lady of the Blues" bio="Singer and pianist" tags={[{ label: "USA", color: observatoryColors.USA }]} />,
+  ],
+  ["ProfileCard (link)", () => <ProfileCard name="Mamie Smith" href="https://example.com/mamie" tags={[{ label: "Singer", color: observatoryColors.Singer }]} />],
+  ["ProfileCard (button)", () => <ProfileCard name="Mamie Smith" onClick={() => {}} />],
+];
+
+describe("accessibility of the Observatory components (axe, WCAG 2.2 A and AA)", () => {
+  it.each(observatory)("%s has no violations", async (_name, build) => {
+    const { container } = renderWithTheme(build());
+    await expectNoA11yViolations(container);
   });
 });

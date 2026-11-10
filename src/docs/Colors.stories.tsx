@@ -7,6 +7,8 @@ import {
   streamingColors,
   type ThemeColors,
 } from "../theme/palettes";
+import { CategoryChip } from "../components/Chip";
+import { categoryPalette, observatoryCategoryPalette } from "../theme/categorical";
 import { ThemedPage } from "./ThemedPage";
 
 const meta = {
@@ -15,7 +17,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Each theme has its own flat palette: editorial (the portfolio), streaming (El Blues es Femenino) and observatory (the Mujeres del Blues Observatory).",
+          "Each theme has its own flat palette: editorial (the portfolio), streaming (El Blues es Femenino) and observatory (the Observatorio MDB).",
       },
     },
   },
@@ -86,6 +88,29 @@ export const Palettes: Story = {
         "Teal, cyan, amber, coral, red and deep purple. Teal carries actions, deep purple the footer. Light colors (cyan, amber, coral, vermilion) are fills for charts and highlights. Flat colors.",
         observatoryColors
       )}
+      <section style={{ marginBottom: 48 }}>
+        <Typography variant="h4" component="h2">
+          Category colors
+        </Typography>
+        <Typography color="text.secondary" sx={{ mb: 2 }}>
+          For countries, roles and decades. Every chip carries its name as text, so color is never the only cue.
+        </Typography>
+        {[
+          ["Observatory (brand fills)", observatoryCategoryPalette],
+          ["Default (soft tints)", categoryPalette],
+        ].map(([title, palette]) => (
+          <div key={title as string} style={{ marginBottom: 16 }}>
+            <Typography variant="overline" component="h3">
+              {title as string}
+            </Typography>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+              {(palette as typeof categoryPalette).map((color, index) => (
+                <CategoryChip key={color.bg} label={`Category ${index + 1}`} color={color} dot />
+              ))}
+            </div>
+          </div>
+        ))}
+      </section>
     </ThemedPage>
   ),
 };

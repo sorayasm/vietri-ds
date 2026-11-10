@@ -30,16 +30,35 @@ export const categoryPalette: readonly CategoryColor[] = [
 /**
  * Assigns a color to each category by its position. Always pass the full,
  * ordered list so the same value gets the same color in every view.
- * With more than 10 categories, colors repeat.
+ * With more categories than colors, colors repeat. Pass another palette (for
+ * example `observatoryCategoryPalette`) to change the colors.
  */
 export function createCategoryColors(
-  keys: readonly string[]
+  keys: readonly string[],
+  palette: readonly CategoryColor[] = categoryPalette
 ): Record<string, CategoryColor> {
   const unique = Array.from(new Set(keys));
   return Object.fromEntries(
-    unique.map((key, index) => [
-      key,
-      categoryPalette[index % categoryPalette.length],
-    ])
+    unique.map((key, index) => [key, palette[index % palette.length]])
   );
 }
+
+/**
+ * Observatory categories: the seven colors of the Observatory palette used as
+ * fills. Light fills (cyan, amber, coral, vermilion) carry dark text; dark
+ * fills carry white text. Every text pair meets AA (4.5:1). `dot` is a darker
+ * shade of the same hue, so a marker is visible on white (≥ 3:1).
+ *
+ * Pass the categories ordered by importance (for example countries by number
+ * of profiles) so the most frequent ones get the most distinct colors. With
+ * more than 7 categories the colors repeat.
+ */
+export const observatoryCategoryPalette: readonly CategoryColor[] = [
+  { bg: "#027381", fg: "#FFFFFF", dot: "#027381" }, // teal
+  { bg: "#FF7751", fg: "#2B1B3D", dot: "#C2410C" }, // coral
+  { bg: "#FFC23D", fg: "#2B1B3D", dot: "#A16207" }, // amber
+  { bg: "#4A0875", fg: "#FFFFFF", dot: "#4A0875" }, // purple
+  { bg: "#0EB9CB", fg: "#2B1B3D", dot: "#0E7490" }, // cyan
+  { bg: "#C41E32", fg: "#FFFFFF", dot: "#C41E32" }, // crimson
+  { bg: "#F33829", fg: "#000000", dot: "#F33829" }, // vermilion
+];
