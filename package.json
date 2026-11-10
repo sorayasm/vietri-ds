@@ -17,11 +17,8 @@
     "prepack": "npm run build"
   },
   "devDependencies": {
-    "@emotion/react": "11.14.0",
-    "@emotion/styled": "11.14.0",
-    "@mui/material": "6.4.12",
-    "@storybook/addon-docs": "^10.6.7",
-    "@storybook/react-vite": "^10.6.7",
+    "@storybook/addon-docs": "^10.6.6",
+    "@storybook/react-vite": "^10.6.6",
     "@testing-library/jest-dom": "6.6.3",
     "@testing-library/react": "16.1.0",
     "@testing-library/user-event": "14.5.2",
@@ -29,12 +26,18 @@
     "@types/react-dom": "18.3.5",
     "@vitejs/plugin-react": "^5.2.0",
     "jsdom": "26.0.0",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
-    "storybook": "^10.6.7",
+    "storybook": "^10.6.6",
     "typescript": "5.7.3",
     "vite": "^7.3.8",
-    "vitest": "^4.1.12"
+    "vitest": "^4.1.12",
+    "@emotion/react": "11.14.0",
+    "@emotion/styled": "11.14.0",
+    "@mui/material": "6.4.12",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "@storybook/addon-a11y": "^10.6.6",
+    "axe-core": "^4.10.0",
+    "lucide-react": "^1.41.0"
   },
   "description": "A themeable React and MUI design system for the Soraya Sacaan portfolio projects.",
   "license": "UNLICENSED",
@@ -53,13 +56,11 @@
     }
   },
   "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0",
+    "@mui/material": ">=6.0.0",
     "@emotion/react": ">=11.0.0",
     "@emotion/styled": ">=11.0.0",
-    "@mui/material": ">=6.0.0",
-    "react": ">=18.0.0",
-    "react-dom": ">=18.0.0"
-  },
-  "allowScripts": {
-    "esbuild@0.28.2": true
+    "lucide-react": ">=0.400.0"
   }
 }

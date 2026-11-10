@@ -1,30 +1,37 @@
 /**
- * Vietri DS design tokens — the single source of truth.
- * Themes read from here; no theme should contain hand-written values.
+ * Vietri DS design tokens that do not depend on the theme: spacing, radius,
+ * typography, shadows and breakpoints. Colors live in `palettes.ts`, one
+ * palette per theme.
  */
+import type { GradientStops, ThemeColors } from "./palettes";
 
-/** Brand colors (Voxmater). */
-export const brand = {
-  navy: "#131B2E",
-  sky: "#38BDF8",
-  purple: "#481374",
-  mist: "#E2E8F0",
-  white: "#FFFFFF",
-  black: "#000000",
-} as const;
+export type { GradientStops };
+
+export function linearGradient(from: string, to: string, angle = 135): string {
+  return `linear-gradient(${angle}deg, ${from} 0%, ${to} 100%)`;
+}
+
+export interface Gradients {
+  /** Footers, headers and banners. */
+  surface: string;
+  /** Primary buttons. */
+  action: string;
+  actionHover: string;
+}
 
 /**
- * Derived colors: they are not part of the brand, they exist to create
- * hierarchy (secondary text, raised surfaces) while keeping AA contrast.
+ * Turns a palette's color pairs into CSS. When both colors of a pair are
+ * equal the result looks flat, so flat themes and gradient themes share code.
  */
-export const derived = {
-  /** Secondary text on light backgrounds (7.6:1 on white). */
-  slate: "#475569",
-  /** Secondary text on dark backgrounds (11.6:1 on navy). */
-  slateLight: "#CBD5E1",
-  /** Raised surface over navy (cards in the dark theme). */
-  navyRaised: "#1C2640",
-} as const;
+export function createGradients(
+  colors: Pick<ThemeColors, "surface" | "action" | "actionHover">
+): Gradients {
+  return {
+    surface: linearGradient(...colors.surface),
+    action: linearGradient(...colors.action),
+    actionHover: linearGradient(...colors.actionHover),
+  };
+}
 
 export const tokens = {
   spacing: 8,
@@ -33,7 +40,6 @@ export const tokens = {
     md: 8,
     lg: 16,
   },
-  color: { ...brand, ...derived },
   typography: {
     fontFamily: '"Inter", "Helvetica Neue", Arial, sans-serif',
     fontWeight: {
@@ -43,9 +49,9 @@ export const tokens = {
     },
   },
   shadow: {
-    sm: "0 1px 2px rgba(19, 27, 46, 0.08)",
-    md: "0 4px 12px rgba(19, 27, 46, 0.12)",
-    lg: "0 12px 32px rgba(19, 27, 46, 0.16)",
+    sm: "0 1px 2px rgba(0, 0, 0, 0.08)",
+    md: "0 4px 12px rgba(0, 0, 0, 0.12)",
+    lg: "0 12px 32px rgba(0, 0, 0, 0.16)",
   },
   breakpoints: {
     xs: 0,

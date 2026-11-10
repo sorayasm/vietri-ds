@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Button } from "../components/Button";
 import { Typography } from "../components/Typography";
 import { Card, CardContent } from "../components/Card";
-import { tokens } from "../theme/tokens";
+import { ThemedPage } from "./ThemedPage";
 
 const meta = {
   title: "Vietri/Welcome",
@@ -13,12 +13,12 @@ type Story = StoryObj<typeof meta>;
 
 export const Introduction: Story = {
   render: () => (
+    <ThemedPage>
     <main
       style={{
         maxWidth: 980,
         margin: "0 auto",
         padding: "64px 32px",
-        color: tokens.color.navy,
       }}
     >
       <Typography variant="overline" color="secondary">
@@ -71,5 +71,6 @@ export const Introduction: Story = {
         ))}
       </div>
     </main>
+    </ThemedPage>
   ),
 };

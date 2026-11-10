@@ -79,8 +79,9 @@ export function DataTable<T extends object>({
     );
   };
 
+  // With horizontal scroll, the container must be able to receive focus (WCAG 2.1.1).
   return (
-    <TableContainer sx={{ overflowX: "auto" }}>
+    <TableContainer tabIndex={0} sx={{ overflowX: "auto" }}>
       <Table>
         {caption && (
           <Typography

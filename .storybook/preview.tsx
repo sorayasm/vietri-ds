@@ -1,5 +1,5 @@
 import type { Preview } from "@storybook/react-vite";
-import { ThemeProvider, CssBaseline } from "@mui/material";
+import { Box, ThemeProvider, CssBaseline } from "@mui/material";
 import { editorialTheme, streamingTheme, observatoryTheme } from "../src/theme";
 
 const themes = {
@@ -29,6 +29,8 @@ const preview: Preview = {
   initialGlobals: { theme: "editorial" },
   parameters: {
     layout: "padded",
+    // The theme decides the background; the Backgrounds toolbar would fight it.
+    backgrounds: { disable: true, disabled: true },
   },
   decorators: [
     (Story, context) => {
@@ -36,7 +38,11 @@ const preview: Preview = {
       return (
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Story />
+          {/* The story gets its own themed background and text color. Without it,
+              the dark theme renders light text on the white Docs canvas. */}
+          <Box sx={{ bgcolor: "background.default", color: "text.primary" }}>
+            <Story />
+          </Box>
         </ThemeProvider>
       );
     },

@@ -24,3 +24,25 @@ export { DataTable } from "./DataTable";
 export type { DataTableProps, DataTableColumn } from "./DataTable";
 export { BarChart } from "./BarChart";
 export type { BarChartProps, BarChartDatum } from "./BarChart";
+
+// Shared components and accessibility
+export { Icon } from "./Icon";
+export type { IconProps } from "./Icon";
+export * as icons from "./Icon/icons";
+export { Chip, CategoryChip } from "./Chip";
+export type { ChipProps, CategoryChipProps } from "./Chip";
+export { Footer } from "./Footer";
+export type { FooterProps, FooterLink } from "./Footer";
+export { SectionHeader } from "./SectionHeader";
+export type { SectionHeaderProps } from "./SectionHeader";
+export { Select } from "./Select";
+export type { SelectProps, SelectOption } from "./Select";
+export { Dialog } from "./Dialog";
+export type { DialogProps } from "./Dialog";
+export { Drawer } from "./Drawer";
+export type { DrawerProps } from "./Drawer";
+export { CopyField } from "./CopyField";
+export type { CopyFieldProps } from "./CopyField";
+export { SkipLink } from "./SkipLink";
+export type { SkipLinkProps } from "./SkipLink";
+export { VisuallyHidden } from "./VisuallyHidden";

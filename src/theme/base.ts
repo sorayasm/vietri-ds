@@ -1,13 +1,24 @@
-import type { ThemeOptions } from "@mui/material/styles";
+import { createTheme, type ThemeOptions } from "@mui/material/styles";
 import "./augmentation";
+import type { VietriExtras } from "./augmentation";
 import { components } from "./components";
-import { tokens } from "./tokens";
+import type { ThemeColors } from "./palettes";
+import { createGradients, tokens } from "./tokens";
 
-const { color, typography, breakpoints } = tokens;
+const { typography, breakpoints } = tokens;
+
+/** Extras available on `theme.vietri` for components. */
+export function vietriExtras(colors: ThemeColors): VietriExtras {
+  return {
+    color: colors,
+    shadow: tokens.shadow,
+    gradient: createGradients(colors),
+  };
+}
 
 /**
- * Options shared by all themes: typography, shape, spacing,
- * breakpoints and tokens. Each theme only provides its own palette.
+ * Options shared by all themes: typography, shape, spacing, breakpoints and
+ * component styles. Each theme only provides its own palette and gradients.
  */
 export const baseOptions: ThemeOptions = {
   spacing: tokens.spacing,
@@ -57,5 +68,27 @@ export const baseOptions: ThemeOptions = {
     },
   },
   components,
-  vietri: { color, shadow: tokens.shadow },
 };
+
+/**
+ * Builds a complete theme from a palette: MUI palette, `theme.vietri` extras,
+ * and everything shared in `baseOptions`.
+ */
+export function createVietriTheme(colors: ThemeColors) {
+  return createTheme({
+    ...baseOptions,
+    vietri: vietriExtras(colors),
+    palette: {
+      mode: colors.mode,
+      primary: { main: colors.primary, contrastText: colors.onPrimary },
+      secondary: { main: colors.secondary, contrastText: colors.onSecondary },
+      error: { main: colors.status.error, contrastText: colors.onStatus },
+      warning: { main: colors.status.warning, contrastText: colors.onStatus },
+      info: { main: colors.status.info, contrastText: colors.onStatus },
+      success: { main: colors.status.success, contrastText: colors.onStatus },
+      background: { default: colors.bg, paper: colors.paper },
+      text: { primary: colors.ink, secondary: colors.inkSoft },
+      divider: colors.line,
+    },
+  });
+}

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Stack, Typography } from "@mui/material";
 import { tokens } from "../theme/tokens";
+import { ThemedPage } from "./ThemedPage";
 const meta = {
   title: "Foundations/Typography",
   parameters: {
@@ -16,6 +17,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 export const TypeScale: Story = {
   render: () => (
+    <ThemedPage>
     <Stack spacing={3}>
       <Typography variant="h1">Heading 1</Typography>
       <Typography variant="h2">Heading 2</Typography>
@@ -36,5 +38,6 @@ export const TypeScale: Story = {
         Font family: {tokens.typography.fontFamily}
       </Typography>
     </Stack>
+    </ThemedPage>
   ),
 };

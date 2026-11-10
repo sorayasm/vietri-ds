@@ -2,16 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { CssBaseline, ThemeProvider, Box, Stack } from "@mui/material";
 import { editorialTheme } from "./theme";
-import { Button, Typography } from "./components";
+import { Button, SkipLink, Typography } from "./components";
 import "./styles.css";
 
 function App() {
   return (
     <ThemeProvider theme={editorialTheme}>
       <CssBaseline />
-      <Box sx={{ minHeight: "100vh", p: { xs: 3, md: 8 } }}>
+      <SkipLink href="#content" />
+      <Box component="main" id="content" tabIndex={-1} sx={{ minHeight: "100vh", p: { xs: 3, md: 8 } }}>
         <Typography variant="overline">Vietri DS · 0.1</Typography>
-        <Typography variant="h1" sx={{ maxWidth: 900, mt: 4 }}>
+        <Typography variant="h1" component="h1" sx={{ maxWidth: 900, mt: 4 }}>
           One design system. Multiple product experiences.
         </Typography>
         <Typography sx={{ maxWidth: 650, mt: 4 }}>

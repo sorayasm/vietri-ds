@@ -1,9 +1,12 @@
 import "@mui/material/styles";
-import type { tokens } from "./tokens";
+import type { ThemeColors } from "./palettes";
+import type { Gradients, tokens } from "./tokens";
 
 export interface VietriExtras {
-  color: typeof tokens.color;
+  /** Named colors of the active theme (see palettes.ts). */
+  color: ThemeColors;
   shadow: typeof tokens.shadow;
+  gradient: Gradients;
 }
 
 declare module "@mui/material/styles" {

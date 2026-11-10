@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-/** Build de distribución: genera ESM, CommonJS y declaraciones TypeScript. */
+/** Distribution build: generates ESM, CommonJS and TypeScript declarations. */
 export default defineConfig({
   plugins: [react()],
   build: {
@@ -15,7 +15,8 @@ export default defineConfig({
       external: (id) =>
         /^(react|react-dom)(\/|$)/.test(id) ||
         /^@mui\/material(\/|$)/.test(id) ||
-        /^@emotion\/(react|styled)(\/|$)/.test(id),
+        /^@emotion\/(react|styled)(\/|$)/.test(id) ||
+        /^lucide-react(\/|$)/.test(id),
       output: {
         globals: {
           react: "React",
