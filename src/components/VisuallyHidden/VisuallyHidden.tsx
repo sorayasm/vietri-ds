@@ -1,11 +1,10 @@
-import type { ComponentProps } from "react";
-import Box from "@mui/material/Box";
+import type { ComponentPropsWithoutRef } from "react";import Box from "@mui/material/Box";
 
 /**
  * Hides content visually while keeping it available to screen readers. Use it
  * for supporting text ("opens in a new tab") and for aria-live regions.
  */
-export function VisuallyHidden(props: ComponentProps<"span">) {
+export function VisuallyHidden(props: ComponentPropsWithoutRef<"span">) {
   return (
     <Box
       component="span"

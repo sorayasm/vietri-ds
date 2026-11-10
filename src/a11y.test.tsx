@@ -11,16 +11,20 @@ import {
   CardContent,
   CategoryChip,
   Chip,
+  ContentRail,
   CopyField,
   DataTable,
   Dialog,
   Drawer,
+  EpisodeList,
   FeatureCard,
   Footer,
   Hero,
   Input,
   LanguageSwitch,
+  MediaCard,
   NavBar,
+  PlaylistCard,
   ProfileCard,
   SectionHeader,
   Select,
@@ -31,6 +35,7 @@ import {
   Tabs,
   Timeline,
   Typography,
+  VideoEmbed,
   icons,
 } from "./components";
 
@@ -85,7 +90,7 @@ const inline: [string, () => ReactElement][] = [
     "NavBar",
     () => (
       <NavBar
-        brand="Vietri Design System"
+        brand="Soraya Sacaan"
         links={[
           { label: "Projects", href: "#projects", current: true },
           { label: "Contact", href: "#contact" },
@@ -215,6 +220,69 @@ const observatory: [string, () => ReactElement][] = [
 
 describe("accessibility of the Observatory components (axe, WCAG 2.2 A and AA)", () => {
   it.each(observatory)("%s has no violations", async (_name, build) => {
+    const { container } = renderWithTheme(build());
+    await expectNoA11yViolations(container);
+  });
+});
+
+/** Streaming components. */
+const streaming: [string, () => ReactElement][] = [
+  ["MediaCard (static)", () => <MediaCard title="Episode 1" meta="Season 1 · Episode 1" subtitle="Sample" duration="42:10" />],
+  ["MediaCard (link)", () => <MediaCard title="Episode 1" href="https://example.com/1" />],
+  ["MediaCard (button)", () => <MediaCard title="Episode 1" onClick={() => {}} />],
+  [
+    "ContentRail",
+    () => (
+      <ContentRail title="Season 1">
+        <MediaCard title="Episode 1" onClick={() => {}} />
+        <MediaCard title="Episode 2" onClick={() => {}} />
+      </ContentRail>
+    ),
+  ],
+  ["VideoEmbed (play button)", () => <VideoEmbed videoId="jNQXAC9IVRw" title="Sample video" />],
+  ["VideoEmbed (player)", () => <VideoEmbed videoId="jNQXAC9IVRw" title="Sample video" lazy={false} />],
+  [
+    "EpisodeList (buttons)",
+    () => (
+      <EpisodeList
+        ariaLabel="Season 1"
+        currentId="e1"
+        onSelect={() => {}}
+        episodes={[
+          { id: "e1", number: 1, title: "Premiere", meta: "38:20", description: "The season opens" },
+          { id: "e2", number: 2, title: "Interview" },
+        ]}
+      />
+    ),
+  ],
+  [
+    "EpisodeList (links)",
+    () => (
+      <EpisodeList
+        episodes={[
+          { id: "e1", number: 1, title: "Premiere", href: "https://example.com/1" },
+          { id: "e2", number: 2, title: "Interview", href: "https://example.com/2" },
+        ]}
+      />
+    ),
+  ],
+  [
+    "PlaylistCard",
+    () => (
+      <PlaylistCard
+        title="Essentials"
+        description="Women in the blues"
+        platforms={[
+          { name: "Spotify", href: "https://open.spotify.com" },
+          { name: "YouTube Music", href: "https://music.youtube.com" },
+        ]}
+      />
+    ),
+  ],
+];
+
+describe("accessibility of the Streaming components (axe, WCAG 2.2 A and AA)", () => {
+  it.each(streaming)("%s has no violations", async (_name, build) => {
     const { container } = renderWithTheme(build());
     await expectNoA11yViolations(container);
   });
