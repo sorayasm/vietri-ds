@@ -3,11 +3,11 @@ import { Card, CardContent } from "../Card";
 import { Typography } from "../Typography";
 
 export interface StatCardProps {
-  /** Cifra destacada, por ejemplo "+200" o "6 años". */
+  /** Highlighted figure, for example "+200" or "6 years". */
   value: ReactNode;
-  /** Qué mide la cifra. */
+  /** What the figure measures. */
   label: string;
-  /** Texto de apoyo opcional. */
+  /** Optional supporting text. */
   description?: string;
 }
 

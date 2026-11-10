@@ -8,7 +8,7 @@ const meta = {
   component: Button,
   tags: ["autodocs"],
   args: {
-    children: "Explorar",
+    children: "Explore",
     variant: "contained",
     color: "primary",
     size: "medium",

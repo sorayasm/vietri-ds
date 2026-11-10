@@ -11,15 +11,15 @@ import Typography from "@mui/material/Typography";
 type SortDirection = "asc" | "desc";
 
 export interface DataTableColumn<T> {
-  /** Clave de la propiedad de la fila que muestra esta columna. */
+  /** Key of the row property this column displays. */
   key: string;
   header: string;
   align?: "left" | "center" | "right";
-  /** Permite ordenar la tabla por esta columna. */
+  /** Allows sorting the table by this column. */
   sortable?: boolean;
-  /** Contenido personalizado de la celda. */
+  /** Custom cell content. */
   render?: (row: T) => ReactNode;
-  /** Valor usado para ordenar, si difiere del valor mostrado. */
+  /** Value used for sorting, when it differs from the displayed value. */
   sortValue?: (row: T) => string | number;
 }
 
@@ -27,7 +27,7 @@ export interface DataTableProps<T extends object> {
   columns: DataTableColumn<T>[];
   rows: T[];
   getRowKey: (row: T) => string | number;
-  /** Título accesible de la tabla. */
+  /** Accessible title of the table. */
   caption?: string;
   emptyMessage?: string;
 }
@@ -55,7 +55,7 @@ export function DataTable<T extends object>({
   rows,
   getRowKey,
   caption,
-  emptyMessage = "Sin datos",
+  emptyMessage = "No data",
 }: DataTableProps<T>) {
   const [sort, setSort] = useState<{ key: string; direction: SortDirection } | null>(
     null

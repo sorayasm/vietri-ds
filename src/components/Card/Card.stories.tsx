@@ -35,14 +35,13 @@ export const Default: Story = {
     <Card {...args}>
       <CardContent>
         <Typography variant="overline" color="text.secondary">
-          Proyecto
+          Project
         </Typography>
         <Typography variant="h4" gutterBottom>
           Vietri Design System
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Componentes reutilizables, tokens y temas para todos los proyectos
-          del portafolio.
+          Reusable components, tokens and themes for every project in the portfolio.
         </Typography>
       </CardContent>
     </Card>
@@ -55,16 +54,16 @@ export const WithMediaAndActions: Story = {
       <CardMedia component="div" sx={{ height: 160, bgcolor: "primary.main" }} />
       <CardContent>
         <Typography variant="h5" gutterBottom>
-          Observatorio Mujeres del Blues
+          Mujeres del Blues Observatory
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Visualización de datos y storytelling sobre trayectorias del blues.
+          Data visualization and storytelling about blues careers.
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Ver proyecto</Button>
+        <Button size="small">View project</Button>
         <Button size="small" variant="text" color="secondary">
-          Código
+          Code
         </Button>
       </CardActions>
     </Card>
@@ -81,7 +80,7 @@ export const Clickable: Story = {
             Streaming Platform
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Toda la tarjeta es un botón accesible con foco visible.
+            The whole card is an accessible button with a visible focus ring.
           </Typography>
         </CardContent>
       </CardActionArea>

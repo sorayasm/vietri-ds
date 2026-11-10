@@ -6,8 +6,8 @@ const meta = {
   component: Input,
   tags: ["autodocs"],
   args: {
-    label: "Correo electrónico",
-    placeholder: "nombre@ejemplo.com",
+    label: "Email address",
+    placeholder: "name@example.com",
     variant: "outlined",
     size: "medium",
     disabled: false,
@@ -38,14 +38,14 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
 
 export const WithHelperText: Story = {
-  args: { helperText: "Solo te escribiremos para responder tu mensaje." },
+  args: { helperText: "We will only write to reply to your message." },
 };
 
 export const Error: Story = {
   args: {
     error: true,
-    defaultValue: "correo-invalido",
-    helperText: "Ingresa un correo válido.",
+    defaultValue: "invalid-email",
+    helperText: "Enter a valid email address.",
   },
 };
 
@@ -54,9 +54,9 @@ export const Required: Story = {
 };
 
 export const Disabled: Story = {
-  args: { disabled: true, defaultValue: "No editable" },
+  args: { disabled: true, defaultValue: "Not editable" },
 };
 
 export const Multiline: Story = {
-  args: { label: "Mensaje", multiline: true, minRows: 4, placeholder: "Cuéntame sobre tu proyecto" },
+  args: { label: "Message", multiline: true, minRows: 4, placeholder: "Tell me about your project" },
 };

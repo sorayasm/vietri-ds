@@ -6,8 +6,8 @@ import { tokens } from "./tokens";
 const { color, typography, breakpoints } = tokens;
 
 /**
- * Opciones compartidas por todos los temas: tipografía, forma, espaciado,
- * breakpoints y tokens. Cada tema solo aporta su paleta.
+ * Options shared by all themes: typography, shape, spacing,
+ * breakpoints and tokens. Each theme only provides its own palette.
  */
 export const baseOptions: ThemeOptions = {
   spacing: tokens.spacing,

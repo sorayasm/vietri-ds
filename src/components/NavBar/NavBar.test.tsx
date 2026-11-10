@@ -5,12 +5,12 @@ import { renderWithTheme } from "../../test/utils";
 import { NavBar } from "./NavBar";
 
 const links = [
-  { label: "Proyectos", href: "#proyectos", current: true },
-  { label: "Sobre mí", href: "#sobre-mi" },
-  { label: "Contacto", href: "#contacto" },
+  { label: "Projects", href: "#projects", current: true },
+  { label: "About", href: "#about" },
+  { label: "Contact", href: "#contact" },
 ];
 
-/** jsdom no implementa matchMedia: simulamos una pantalla ancha. */
+/** jsdom does not implement matchMedia: we simulate a wide screen. */
 function mockDesktop() {
   vi.stubGlobal("matchMedia", (query: string) => ({
     matches: true,
@@ -28,37 +28,37 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
-describe("NavBar en escritorio", () => {
-  it("muestra la marca y los enlaces dentro de una navegación", () => {
+describe("NavBar on desktop", () => {
+  it("shows the brand and the links inside a navigation", () => {
     mockDesktop();
     renderWithTheme(<NavBar brand="Soraya Sacaan" links={links} />);
     expect(screen.getByRole("link", { name: "Soraya Sacaan" })).toBeInTheDocument();
-    expect(screen.getByRole("navigation", { name: "Principal" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Sobre mí" })).toHaveAttribute(
+    expect(screen.getByRole("navigation", { name: "Main" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "About" })).toHaveAttribute(
       "href",
-      "#sobre-mi"
+      "#about"
     );
   });
 
-  it("marca la página actual con aria-current", () => {
+  it("marks the current page with aria-current", () => {
     mockDesktop();
     renderWithTheme(<NavBar brand="Soraya Sacaan" links={links} />);
-    expect(screen.getByRole("link", { name: "Proyectos" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "Projects" })).toHaveAttribute(
       "aria-current",
       "page"
     );
-    expect(screen.getByRole("link", { name: "Contacto" })).not.toHaveAttribute(
+    expect(screen.getByRole("link", { name: "Contact" })).not.toHaveAttribute(
       "aria-current"
     );
   });
 
-  it("no muestra el botón de menú", () => {
+  it("does not show the menu button", () => {
     mockDesktop();
     renderWithTheme(<NavBar brand="Soraya Sacaan" links={links} />);
-    expect(screen.queryByRole("button", { name: "Menú" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Menu" })).not.toBeInTheDocument();
   });
 
-  it("muestra las acciones extra", () => {
+  it("shows the extra actions", () => {
     mockDesktop();
     renderWithTheme(
       <NavBar brand="Soraya Sacaan" links={links} actions={<button>EN</button>} />
@@ -67,32 +67,32 @@ describe("NavBar en escritorio", () => {
   });
 });
 
-describe("NavBar en móvil", () => {
-  it("oculta los enlaces hasta abrir el menú", async () => {
+describe("NavBar on mobile", () => {
+  it("hides the links until the menu is opened", async () => {
     renderWithTheme(<NavBar brand="Soraya Sacaan" links={links} />);
-    expect(screen.queryByRole("link", { name: "Sobre mí" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: "About" })).not.toBeInTheDocument();
 
-    const toggle = screen.getByRole("button", { name: "Menú" });
+    const toggle = screen.getByRole("button", { name: "Menu" });
     expect(toggle).toHaveAttribute("aria-expanded", "false");
 
     await userEvent.click(toggle);
-    expect(await screen.findByRole("link", { name: "Sobre mí" })).toBeInTheDocument();
-    expect(screen.getByRole("navigation", { name: "Principal" })).toBeInTheDocument();
+    expect(await screen.findByRole("link", { name: "About" })).toBeInTheDocument();
+    expect(screen.getByRole("navigation", { name: "Main" })).toBeInTheDocument();
   });
 
-  it("cierra el menú con el botón de cerrar", async () => {
+  it("closes the menu with the close button", async () => {
     renderWithTheme(<NavBar brand="Soraya Sacaan" links={links} />);
-    await userEvent.click(screen.getByRole("button", { name: "Menú" }));
-    await userEvent.click(await screen.findByRole("button", { name: "Cerrar menú" }));
+    await userEvent.click(screen.getByRole("button", { name: "Menu" }));
+    await userEvent.click(await screen.findByRole("button", { name: "Close menu" }));
     await waitFor(() =>
-      expect(screen.queryByRole("link", { name: "Sobre mí" })).not.toBeInTheDocument()
+      expect(screen.queryByRole("link", { name: "About" })).not.toBeInTheDocument()
     );
   });
 
-  it("permite cambiar los textos del menú", () => {
+  it("allows changing the menu labels", () => {
     renderWithTheme(
-      <NavBar brand="Soraya Sacaan" links={links} menuLabel="Menu" closeLabel="Close" />
+      <NavBar brand="Soraya Sacaan" links={links} menuLabel="Open navigation" closeLabel="Close navigation" />
     );
-    expect(screen.getByRole("button", { name: "Menu" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Open navigation" })).toBeInTheDocument();
   });
 });

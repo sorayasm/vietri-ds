@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { BarChart } from "./BarChart";
 
 const meta = {
@@ -6,12 +6,12 @@ const meta = {
   component: BarChart,
   tags: ["autodocs"],
   args: {
-    title: "Perfiles por país (datos de ejemplo)",
+    title: "Profiles by country (sample data)",
     data: [
       { label: "Chile", value: 42 },
       { label: "Argentina", value: 31 },
-      { label: "Estados Unidos", value: 58 },
-      { label: "España", value: 17 },
+      { label: "United States", value: 58 },
+      { label: "Spain", value: 17 },
     ],
   },
   decorators: [
@@ -33,5 +33,5 @@ export const WithFixedMax: Story = {
 };
 
 export const WithFormattedValues: Story = {
-  args: { formatValue: (value) => `${value} perfiles` },
+  args: { formatValue: (value) => `${value} profiles` },
 };

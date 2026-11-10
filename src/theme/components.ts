@@ -2,8 +2,8 @@ import type { ThemeOptions } from "@mui/material/styles";
 import { tokens } from "./tokens";
 
 /**
- * Identidad visual de los componentes MUI. Vive en el tema para que
- * aplique igual en los tres temas y en cualquier app que use Vietri.
+ * Visual identity of the MUI components. It lives in the theme so it
+ * applies the same way to all three themes and to any app that uses Vietri.
  */
 export const components: ThemeOptions["components"] = {
   MuiButton: {
@@ -52,8 +52,8 @@ export const components: ThemeOptions["components"] = {
     },
   },
 
-  // El borde de los campos usa el color de texto secundario para cumplir
-  // el contraste mínimo de 3:1 en componentes de interfaz (WCAG 1.4.11).
+  // Field borders use the secondary text color to meet the 3:1 minimum
+  // contrast for interface components (WCAG 1.4.11).
   MuiOutlinedInput: {
     styleOverrides: {
       root: ({ theme }) => ({

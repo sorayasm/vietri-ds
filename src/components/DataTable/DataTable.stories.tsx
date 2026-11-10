@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { DataTable, type DataTableColumn, type DataTableProps } from "./DataTable";
 
 interface Artist {
@@ -8,17 +8,17 @@ interface Artist {
 }
 
 const rows: Artist[] = [
-  { name: "Bessie Smith", born: 1894, country: "Estados Unidos" },
-  { name: "Ma Rainey", born: 1886, country: "Estados Unidos" },
-  { name: "Sister Rosetta Tharpe", born: 1915, country: "Estados Unidos" },
-  { name: "Big Mama Thornton", born: 1926, country: "Estados Unidos" },
-  { name: "Etta James", born: 1938, country: "Estados Unidos" },
+  { name: "Bessie Smith", born: 1894, country: "United States" },
+  { name: "Ma Rainey", born: 1886, country: "United States" },
+  { name: "Sister Rosetta Tharpe", born: 1915, country: "United States" },
+  { name: "Big Mama Thornton", born: 1926, country: "United States" },
+  { name: "Etta James", born: 1938, country: "United States" },
 ];
 
 const columns: DataTableColumn<Artist>[] = [
-  { key: "name", header: "Artista", sortable: true },
-  { key: "born", header: "Nacimiento", align: "right", sortable: true },
-  { key: "country", header: "País" },
+  { key: "name", header: "Artist", sortable: true },
+  { key: "born", header: "Born", align: "right", sortable: true },
+  { key: "country", header: "Country" },
 ];
 
 const meta: Meta<DataTableProps<Artist>> = {
@@ -29,7 +29,7 @@ const meta: Meta<DataTableProps<Artist>> = {
     columns,
     rows,
     getRowKey: (row) => row.name,
-    caption: "Artistas de ejemplo",
+    caption: "Sample artists",
   },
 };
 
@@ -50,7 +50,7 @@ export const CustomCell: Story = {
       ...columns.slice(0, 2),
       {
         key: "country",
-        header: "País",
+        header: "Country",
         render: (row) => <strong>{row.country}</strong>,
       },
     ],
@@ -58,5 +58,5 @@ export const CustomCell: Story = {
 };
 
 export const Empty: Story = {
-  args: { rows: [], emptyMessage: "No hay artistas para mostrar" },
+  args: { rows: [], emptyMessage: "No artists to show" },
 };

@@ -1,9 +1,9 @@
 /**
- * Design tokens de Vietri DS — única fuente de verdad.
- * Los temas leen de aquí; ningún tema debe tener valores escritos a mano.
+ * Vietri DS design tokens — the single source of truth.
+ * Themes read from here; no theme should contain hand-written values.
  */
 
-/** Colores de marca (Voxmater). */
+/** Brand colors (Voxmater). */
 export const brand = {
   navy: "#131B2E",
   sky: "#38BDF8",
@@ -14,15 +14,15 @@ export const brand = {
 } as const;
 
 /**
- * Colores derivados: no son de la marca, existen para dar jerarquía
- * (texto secundario, superficies elevadas) manteniendo contraste AA.
+ * Derived colors: they are not part of the brand, they exist to create
+ * hierarchy (secondary text, raised surfaces) while keeping AA contrast.
  */
 export const derived = {
-  /** Texto secundario sobre fondos claros (7.6:1 sobre blanco). */
+  /** Secondary text on light backgrounds (7.6:1 on white). */
   slate: "#475569",
-  /** Texto secundario sobre fondos oscuros (11.6:1 sobre navy). */
+  /** Secondary text on dark backgrounds (11.6:1 on navy). */
   slateLight: "#CBD5E1",
-  /** Superficie elevada sobre navy (tarjetas en el tema oscuro). */
+  /** Raised surface over navy (cards in the dark theme). */
   navyRaised: "#1C2640",
 } as const;
 

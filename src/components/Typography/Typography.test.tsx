@@ -4,26 +4,26 @@ import { renderWithTheme } from "../../test/utils";
 import { Typography } from "./Typography";
 
 describe("Typography", () => {
-  it("h1 se renderiza como encabezado de nivel 1", () => {
-    renderWithTheme(<Typography variant="h1">Título</Typography>);
+  it("h1 renders as a level 1 heading", () => {
+    renderWithTheme(<Typography variant="h1">Title</Typography>);
     expect(
-      screen.getByRole("heading", { level: 1, name: "Título" })
+      screen.getByRole("heading", { level: 1, name: "Title" })
     ).toBeInTheDocument();
   });
 
-  it("body1 se renderiza como párrafo", () => {
-    renderWithTheme(<Typography variant="body1">Texto</Typography>);
-    expect(screen.getByText("Texto").tagName).toBe("P");
+  it("body1 renders as a paragraph", () => {
+    renderWithTheme(<Typography variant="body1">Text</Typography>);
+    expect(screen.getByText("Text").tagName).toBe("P");
   });
 
-  it("permite cambiar el elemento HTML con component", () => {
+  it("allows changing the HTML element with component", () => {
     renderWithTheme(
       <Typography variant="h2" component="h3">
-        Sección
+        Section
       </Typography>
     );
     expect(
-      screen.getByRole("heading", { level: 3, name: "Sección" })
+      screen.getByRole("heading", { level: 3, name: "Section" })
     ).toBeInTheDocument();
   });
 });

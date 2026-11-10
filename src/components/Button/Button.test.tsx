@@ -6,37 +6,37 @@ import { editorialTheme, streamingTheme, observatoryTheme } from "../../theme";
 import { Button } from "./Button";
 
 describe("Button", () => {
-  it("muestra su texto", () => {
-    renderWithTheme(<Button>Guardar</Button>);
-    expect(screen.getByRole("button", { name: "Guardar" })).toBeInTheDocument();
+  it("shows its text", () => {
+    renderWithTheme(<Button>Save</Button>);
+    expect(screen.getByRole("button", { name: "Save" })).toBeInTheDocument();
   });
 
-  it("llama a onClick al hacer clic", async () => {
+  it("calls onClick when clicked", async () => {
     const onClick = vi.fn();
-    renderWithTheme(<Button onClick={onClick}>Guardar</Button>);
-    await userEvent.click(screen.getByRole("button", { name: "Guardar" }));
+    renderWithTheme(<Button onClick={onClick}>Save</Button>);
+    await userEvent.click(screen.getByRole("button", { name: "Save" }));
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 
-  it("no llama a onClick cuando está deshabilitado", async () => {
-    // MUI aplica pointer-events: none a los botones deshabilitados;
-    // desactivamos esa verificación para comprobar que onClick no se dispara.
+  it("does not call onClick when disabled", async () => {
+    // MUI applies pointer-events: none to disabled buttons;
+    // we turn that check off to verify that onClick is not fired.
     const user = userEvent.setup({ pointerEventsCheck: 0 });
     const onClick = vi.fn();
     renderWithTheme(
       <Button disabled onClick={onClick}>
-        Guardar
+        Save
       </Button>
     );
-    const button = screen.getByRole("button", { name: "Guardar" });
+    const button = screen.getByRole("button", { name: "Save" });
     expect(button).toBeDisabled();
     await user.click(button);
     expect(onClick).not.toHaveBeenCalled();
   });
 
-  it("se puede activar con el teclado", async () => {
+  it("can be activated with the keyboard", async () => {
     const onClick = vi.fn();
-    renderWithTheme(<Button onClick={onClick}>Guardar</Button>);
+    renderWithTheme(<Button onClick={onClick}>Save</Button>);
     await userEvent.tab();
     await userEvent.keyboard("{Enter}");
     expect(onClick).toHaveBeenCalledTimes(1);
@@ -46,8 +46,8 @@ describe("Button", () => {
     ["editorial", editorialTheme],
     ["streaming", streamingTheme],
     ["observatory", observatoryTheme],
-  ])("se renderiza con el tema %s", (_name, theme) => {
-    renderWithTheme(<Button>Explorar</Button>, theme);
-    expect(screen.getByRole("button", { name: "Explorar" })).toBeInTheDocument();
+  ])("renders with the %s theme", (_name, theme) => {
+    renderWithTheme(<Button>Explore</Button>, theme);
+    expect(screen.getByRole("button", { name: "Explore" })).toBeInTheDocument();
   });
 });

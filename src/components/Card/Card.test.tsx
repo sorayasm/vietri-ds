@@ -6,7 +6,7 @@ import { editorialTheme, streamingTheme, observatoryTheme } from "../../theme";
 import { Card, CardActionArea, CardContent } from "./Card";
 
 describe("Card", () => {
-  it("muestra su contenido", () => {
+  it("shows its content", () => {
     renderWithTheme(
       <Card>
         <CardContent>Vietri Design System</CardContent>
@@ -15,25 +15,25 @@ describe("Card", () => {
     expect(screen.getByText("Vietri Design System")).toBeInTheDocument();
   });
 
-  it("usa la variante outlined por defecto", () => {
+  it("uses the outlined variant by default", () => {
     renderWithTheme(
       <Card data-testid="card">
-        <CardContent>Contenido</CardContent>
+        <CardContent>Content</CardContent>
       </Card>
     );
     expect(screen.getByTestId("card")).toHaveClass("MuiPaper-outlined");
   });
 
-  it("CardActionArea es un botón accesible que responde al clic", async () => {
+  it("CardActionArea is an accessible button that responds to clicks", async () => {
     const onClick = vi.fn();
     renderWithTheme(
       <Card>
         <CardActionArea onClick={onClick}>
-          <CardContent>Abrir proyecto</CardContent>
+          <CardContent>Open project</CardContent>
         </CardActionArea>
       </Card>
     );
-    await userEvent.click(screen.getByRole("button", { name: "Abrir proyecto" }));
+    await userEvent.click(screen.getByRole("button", { name: "Open project" }));
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 
@@ -41,13 +41,13 @@ describe("Card", () => {
     ["editorial", editorialTheme],
     ["streaming", streamingTheme],
     ["observatory", observatoryTheme],
-  ])("se renderiza con el tema %s", (_name, theme) => {
+  ])("renders with the %s theme", (_name, theme) => {
     renderWithTheme(
       <Card>
-        <CardContent>Contenido</CardContent>
+        <CardContent>Content</CardContent>
       </Card>,
       theme
     );
-    expect(screen.getByText("Contenido")).toBeInTheDocument();
+    expect(screen.getByText("Content")).toBeInTheDocument();
   });
 });

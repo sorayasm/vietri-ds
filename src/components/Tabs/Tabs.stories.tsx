@@ -7,7 +7,7 @@ const meta = {
   title: "Components/Tabs",
   component: Tabs,
   tags: ["autodocs"],
-  args: { "aria-label": "Secciones del observatorio" },
+  args: { "aria-label": "Observatory sections" },
   argTypes: {
     variant: { control: "inline-radio", options: ["standard", "fullWidth", "scrollable"] },
   },
@@ -21,9 +21,9 @@ function Demo(args: TabsProps) {
   return (
     <>
       <Tabs {...args} value={value} onChange={(_event, next: string) => setValue(next)}>
-        <Tab label="Línea de tiempo" value="timeline" />
-        <Tab label="Mapa" value="map" />
-        <Tab label="Relaciones" value="graph" />
+        <Tab label="Timeline" value="timeline" />
+        <Tab label="Map" value="map" />
+        <Tab label="Relationships" value="graph" />
       </Tabs>
       <Typography sx={{ mt: 3 }} color="text.secondary">
         Vista activa: {value}

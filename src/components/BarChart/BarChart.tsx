@@ -9,11 +9,11 @@ export interface BarChartDatum {
 
 export interface BarChartProps {
   data: BarChartDatum[];
-  /** Título visible del gráfico. */
+  /** Visible chart title. */
   title?: string;
-  /** Valor que equivale al 100 % de la barra. Por defecto, el mayor de los datos. */
+  /** Value that equals 100% of the bar. Defaults to the largest value in the data. */
   max?: number;
-  /** Cómo se muestra cada valor. Por defecto, el número tal cual. */
+  /** How each value is displayed. Defaults to the plain number. */
   formatValue?: (value: number) => string;
 }
 
@@ -55,8 +55,8 @@ export function BarChart({
                 columnGap: 2,
               }}
             >
-              {/* La barra expone la información a lectores de pantalla;
-                  el texto visible se oculta para no repetirla. */}
+              {/* The bar exposes the information to screen readers;
+                  the visible text is hidden so it is not read twice. */}
               <Typography variant="body2" aria-hidden="true">
                 {datum.label}
               </Typography>

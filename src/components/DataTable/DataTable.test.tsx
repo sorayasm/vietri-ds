@@ -16,14 +16,14 @@ const rows: Row[] = [
 ];
 
 const columns: DataTableColumn<Row>[] = [
-  { key: "name", header: "Artista", sortable: true },
-  { key: "year", header: "Año", align: "right", sortable: true },
+  { key: "name", header: "Artist", sortable: true },
+  { key: "year", header: "Year", align: "right", sortable: true },
 ];
 
 function renderTable(extra: { rows?: Row[]; emptyMessage?: string } = {}) {
   return renderWithTheme(
     <DataTable<Row>
-      caption="Artistas"
+      caption="Artists"
       columns={columns}
       rows={extra.rows ?? rows}
       getRowKey={(row) => row.name}
@@ -32,7 +32,7 @@ function renderTable(extra: { rows?: Row[]; emptyMessage?: string } = {}) {
   );
 }
 
-/** Nombres de las filas de datos, en el orden en que aparecen. */
+/** Names of the data rows, in the order they appear. */
 function firstColumnOrder() {
   return screen
     .getAllByRole("row")
@@ -41,72 +41,72 @@ function firstColumnOrder() {
 }
 
 describe("DataTable", () => {
-  it("muestra el título accesible y los encabezados", () => {
+  it("shows the accessible title and the headers", () => {
     renderTable();
-    expect(screen.getByRole("table", { name: "Artistas" })).toBeInTheDocument();
+    expect(screen.getByRole("table", { name: "Artists" })).toBeInTheDocument();
     expect(screen.getAllByRole("columnheader")).toHaveLength(2);
   });
 
-  it("muestra una fila por dato, en el orden original", () => {
+  it("shows one row per data item, in the original order", () => {
     renderTable();
     expect(firstColumnOrder()).toEqual(["Bessie Smith", "Ma Rainey", "Etta James"]);
   });
 
-  it("ordena de forma ascendente al pulsar el encabezado de un número", async () => {
+  it("sorts ascending when a numeric header is clicked", async () => {
     renderTable();
-    await userEvent.click(screen.getByRole("button", { name: "Año" }));
+    await userEvent.click(screen.getByRole("button", { name: "Year" }));
     expect(firstColumnOrder()).toEqual(["Ma Rainey", "Bessie Smith", "Etta James"]);
-    expect(screen.getByRole("columnheader", { name: /Año/ })).toHaveAttribute(
+    expect(screen.getByRole("columnheader", { name: /Year/ })).toHaveAttribute(
       "aria-sort",
       "ascending"
     );
   });
 
-  it("invierte el orden al pulsar de nuevo", async () => {
+  it("reverses the order when clicked again", async () => {
     renderTable();
-    const header = screen.getByRole("button", { name: "Año" });
+    const header = screen.getByRole("button", { name: "Year" });
     await userEvent.click(header);
     await userEvent.click(header);
     expect(firstColumnOrder()).toEqual(["Etta James", "Bessie Smith", "Ma Rainey"]);
-    expect(screen.getByRole("columnheader", { name: /Año/ })).toHaveAttribute(
+    expect(screen.getByRole("columnheader", { name: /Year/ })).toHaveAttribute(
       "aria-sort",
       "descending"
     );
   });
 
-  it("ordena texto alfabéticamente", async () => {
+  it("sorts text alphabetically", async () => {
     renderTable();
-    await userEvent.click(screen.getByRole("button", { name: "Artista" }));
+    await userEvent.click(screen.getByRole("button", { name: "Artist" }));
     expect(firstColumnOrder()).toEqual(["Bessie Smith", "Etta James", "Ma Rainey"]);
   });
 
-  it("no ordena columnas que no son sortable", () => {
+  it("does not sort columns that are not sortable", () => {
     renderWithTheme(
       <DataTable<Row>
-        columns={[{ key: "name", header: "Artista" }]}
+        columns={[{ key: "name", header: "Artist" }]}
         rows={rows}
         getRowKey={(row) => row.name}
       />
     );
-    expect(screen.queryByRole("button", { name: "Artista" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Artist" })).not.toBeInTheDocument();
   });
 
-  it("muestra el mensaje cuando no hay datos", () => {
-    renderTable({ rows: [], emptyMessage: "Nada que mostrar" });
-    expect(screen.getByText("Nada que mostrar")).toBeInTheDocument();
+  it("shows the message when there is no data", () => {
+    renderTable({ rows: [], emptyMessage: "Nothing to show" });
+    expect(screen.getByText("Nothing to show")).toBeInTheDocument();
   });
 
-  it("usa render para celdas personalizadas", () => {
+  it("uses render for custom cells", () => {
     renderWithTheme(
       <DataTable<Row>
         columns={[
-          { key: "name", header: "Artista" },
-          { key: "year", header: "Año", render: (row) => <em>nació en {row.year}</em> },
+          { key: "name", header: "Artist" },
+          { key: "year", header: "Year", render: (row) => <em>born in {row.year}</em> },
         ]}
         rows={[rows[0]]}
         getRowKey={(row) => row.name}
       />
     );
-    expect(screen.getByText("nació en 1894")).toBeInTheDocument();
+    expect(screen.getByText("born in 1894")).toBeInTheDocument();
   });
 });

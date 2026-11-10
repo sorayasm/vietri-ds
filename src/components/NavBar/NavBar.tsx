@@ -14,22 +14,22 @@ import { Button } from "../Button";
 export interface NavLink {
   label: string;
   href: string;
-  /** Marca el enlace de la página actual (aria-current="page"). */
+  /** Marks the link of the current page (aria-current="page"). */
   current?: boolean;
 }
 
 export interface NavBarProps {
-  /** Marca o nombre que aparece a la izquierda. */
+  /** Brand or name shown on the left. */
   brand: ReactNode;
   brandHref?: string;
   links: NavLink[];
-  /** Elementos extra a la derecha, por ejemplo un selector de idioma. */
+  /** Extra elements on the right, for example a language selector. */
   actions?: ReactNode;
-  /** Nombre accesible de la navegación. */
+  /** Accessible name of the navigation. */
   ariaLabel?: string;
-  /** Texto del botón que abre el menú en pantallas pequeñas. */
+  /** Label of the button that opens the menu on small screens. */
   menuLabel?: string;
-  /** Texto del botón que cierra el menú en pantallas pequeñas. */
+  /** Label of the button that closes the menu on small screens. */
   closeLabel?: string;
 }
 
@@ -70,9 +70,9 @@ export function NavBar({
   brandHref = "/",
   links,
   actions,
-  ariaLabel = "Principal",
-  menuLabel = "Menú",
-  closeLabel = "Cerrar menú",
+  ariaLabel = "Main",
+  menuLabel = "Menu",
+  closeLabel = "Close menu",
 }: NavBarProps) {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"), { noSsr: true });

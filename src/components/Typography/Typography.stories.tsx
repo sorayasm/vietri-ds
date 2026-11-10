@@ -23,7 +23,7 @@ const meta = {
   component: Typography,
   tags: ["autodocs"],
   args: {
-    children: "Construyendo experiencias digitales con código, diseño y datos.",
+    children: "Building digital experiences through code, design and data.",
     variant: "body1",
   },
   argTypes: {
@@ -49,7 +49,7 @@ export const Scale: Story = {
           <Typography variant="overline" color="text.secondary">
             {variant}
           </Typography>
-          <Typography variant={variant}>Cultura, datos y código</Typography>
+          <Typography variant={variant}>Culture, data and code</Typography>
         </div>
       ))}
     </Stack>

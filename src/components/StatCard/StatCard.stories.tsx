@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StatCard } from "./StatCard";
 
 const meta = {
@@ -7,7 +7,7 @@ const meta = {
   tags: ["autodocs"],
   args: {
     value: "+200",
-    label: "Biografías documentadas",
+    label: "Documented biographies",
   },
   decorators: [
     (Story) => (
@@ -25,9 +25,9 @@ export const Default: Story = {};
 
 export const WithDescription: Story = {
   args: {
-    value: "6 años",
-    label: "De trayectoria editorial",
-    description: "Investigación continua desde el primer volumen.",
+    value: "6 years",
+    label: "Of editorial work",
+    description: "Ongoing research since the first volume.",
   },
 };
 
@@ -41,10 +41,10 @@ export const Grid: Story = {
           gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
         }}
       >
-        <StatCard value="+200" label="Biografías documentadas" />
-        <StatCard value="179" label="Perfiles estructurados" />
-        <StatCard value="211" label="Relaciones verificadas" />
-        <StatCard value="6 años" label="De trayectoria editorial" />
+        <StatCard value="+200" label="Documented biographies" />
+        <StatCard value="179" label="Structured profiles" />
+        <StatCard value="211" label="Verified relationships" />
+        <StatCard value="6 years" label="Of editorial work" />
       </div>
     ),
   ],

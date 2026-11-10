@@ -13,9 +13,9 @@ type ThemeName = keyof typeof themes;
 const preview: Preview = {
   globalTypes: {
     theme: {
-      description: "Tema de Vietri DS",
+      description: "Vietri DS theme",
       toolbar: {
-        title: "Tema",
+        title: "Theme",
         icon: "paintbrush",
         dynamicTitle: true,
         items: [

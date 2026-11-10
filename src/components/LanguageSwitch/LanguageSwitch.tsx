@@ -10,7 +10,7 @@ export interface LanguageSwitchProps {
   value: string;
   onChange: (value: string) => void;
   options?: LanguageOption[];
-  /** Nombre accesible del grupo. */
+  /** Accessible name of the group. */
   ariaLabel?: string;
 }
 
@@ -23,7 +23,7 @@ export function LanguageSwitch({
   value,
   onChange,
   options = defaultOptions,
-  ariaLabel = "Idioma",
+  ariaLabel = "Language",
 }: LanguageSwitchProps) {
   return (
     <ToggleButtonGroup
@@ -32,7 +32,7 @@ export function LanguageSwitch({
       value={value}
       aria-label={ariaLabel}
       onChange={(_event, next: string | null) => {
-        // Con "exclusive", pulsar la opción activa devuelve null: lo ignoramos.
+        // With "exclusive", clicking the active option returns null: we ignore it.
         if (next !== null) onChange(next);
       }}
     >
