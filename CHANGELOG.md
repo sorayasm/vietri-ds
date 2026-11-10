@@ -4,6 +4,13 @@ All notable changes to Vietri DS are listed here. The project follows
 [Semantic Versioning](https://semver.org/); while the version is 0.x, a minor
 version may include breaking changes.
 
+## 0.2.2
+
+### Documentation
+
+- README explains how to test an app that uses the library with Vitest
+  (`server.deps.inline`), because MUI 6 has no `exports` map.
+
 ## 0.2.1
 
 ### Fixed

@@ -1,6 +1,6 @@
 # Vietri DS
 
-A themeable design system built with React, TypeScript and MUI. It is the shared UI foundation for the projects in the [Soraya Sacaan](https://www.sorayasacaan.com) portfolio: the portfolio site, the streaming platform and the Mujeres del Blues Observatory.
+A themeable design system built with React, TypeScript and MUI. It is the shared UI foundation for the projects in the [Soraya Sacaan](https://sorayasacaan.com) portfolio: the portfolio site, the streaming platform and the Mujeres del Blues Observatory.
 
 > **Status:** early development (v0.1). Foundations, themes, tooling and the first set of components are in place.
 
@@ -191,6 +191,19 @@ export function App() {
 ```
 
 **4. Translate the texts.** Every user-facing default ("Menu", "Close", "Copy"…) is a prop, so an app in another language passes its own.
+
+**5. Testing an app that uses the library (Vitest).** MUI 6 has no `exports` map, so Node cannot import its folders (`@mui/material/Box`) from an ES module package. Running tests that render Vietri components fails with `Directory import '…/@mui/material/Box' is not supported`. Tell Vitest to process the design system with Vite, in the app's `vite.config.ts`:
+
+```ts
+export default defineConfig({
+  test: {
+    environment: "jsdom",
+    server: { deps: { inline: ["@sorayasm/vietri-ds"] } },
+  },
+});
+```
+
+Builds and the dev server are not affected, only tests that run directly in Node.
 
 `react`, `react-dom`, `@mui/material` (6.x), `@emotion/react`, `@emotion/styled` and `lucide-react` are peer dependencies. The `theme.vietri` types are added to MUI automatically when `@sorayasm/vietri-ds` is imported.
 
