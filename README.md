@@ -1,6 +1,6 @@
 # Vietri DS
 
-A themeable design system built with React, TypeScript and MUI. It is the shared UI foundation for the projects in the [Soraya Sacaan](https://sorayasacaan.com) portfolio: the portfolio site, the streaming platform and the Mujeres del Blues Observatory.
+A themeable design system built with React, TypeScript and MUI. It is the shared UI foundation for the projects in the [Soraya Sacaan](https://www.sorayasacaan.com) portfolio: the portfolio site, the streaming platform and the Mujeres del Blues Observatory.
 
 > **Status:** early development (v0.1). Foundations, themes, tooling and the first set of components are in place.
 
