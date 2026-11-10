@@ -1,7 +1,7 @@
 {
-  "name": "vietri-ds",
+  "name": "@sorayasm/vietri-ds",
   "private": false,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -39,13 +39,14 @@
     "axe-core": "^4.10.0",
     "lucide-react": "^1.41.0"
   },
-  "description": "A themeable React and MUI design system for the Vietri Design System portfolio projects.",
-  "license": "UNLICENSED",
+  "description": "A themeable React and MUI design system for the Soraya Sacaan portfolio projects.",
+  "license": "MIT",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/types/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "CHANGELOG.md"
   ],
   "sideEffects": false,
   "exports": {
@@ -53,14 +54,37 @@
       "types": "./dist/types/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
-    }
+    },
+    "./package.json": "./package.json"
   },
   "peerDependencies": {
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0",
-    "@mui/material": ">=6.0.0",
+    "@mui/material": ">=6.0.0 <7.0.0",
     "@emotion/react": ">=11.0.0",
     "@emotion/styled": ">=11.0.0",
     "lucide-react": ">=0.400.0"
-  }
+  },
+  "keywords": [
+    "design-system",
+    "react",
+    "mui",
+    "accessibility",
+    "storybook"
+  ],
+  "engines": {
+    "node": ">=20.19"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sorayasm/vietri-ds.git"
+  },
+  "homepage": "https://github.com/sorayasm/vietri-ds#readme",
+  "bugs": {
+    "url": "https://github.com/sorayasm/vietri-ds/issues"
+  },
+  "author": "Soraya Sacaan"
 }

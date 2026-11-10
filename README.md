@@ -13,6 +13,10 @@ A themeable design system built with React, TypeScript and MUI. It is the shared
 - Testing, including automated accessibility checks
 - Responsive and accessible UI (WCAG 2.2 AA)
 
+## Releases
+
+The package is published on npm as [`@sorayasm/vietri-ds`](https://www.npmjs.com/package/@sorayasm/vietri-ds). Every release is listed in the [changelog](./CHANGELOG.md). Storybook is deployed to GitHub Pages by the `Storybook` workflow and lives at [sorayasm.github.io/vietri-ds](https://sorayasm.github.io/vietri-ds/) once Pages is enabled in the repository settings. Source code: [github.com/sorayasm/vietri-ds](https://github.com/sorayasm/vietri-ds).
+
 ## Themes
 
 | Theme         | Mode  | Used by                     |
@@ -27,7 +31,7 @@ Tokens are also available inside components through `theme.vietri` (typed via MU
 
 ```tsx
 import { ThemeProvider, CssBaseline } from "@mui/material";
-import { streamingTheme } from "vietri-ds";
+import { streamingTheme } from "@sorayasm/vietri-ds";
 
 <ThemeProvider theme={streamingTheme}>
   <CssBaseline />
@@ -91,7 +95,7 @@ import {
   SkipLink,
   icons,
   Icon,
-} from "vietri-ds";
+} from "@sorayasm/vietri-ds";
 
 <SkipLink href="#content" />
 <NavBar
@@ -130,7 +134,7 @@ React · TypeScript · Vite · MUI · Emotion · lucide-react · Storybook · Vi
 
 ## Getting started
 
-Requires Node.js 18 or higher.
+Requires Node.js 20.19 or higher (Vite 7 and Storybook 10).
 
 ```bash
 npm install
@@ -152,7 +156,43 @@ npm run storybook
 
 ## Using the library
 
-`react`, `react-dom`, `@mui/material`, `@emotion/react`, `@emotion/styled` and `lucide-react` are peer dependencies: the host app provides them.
+**1. Install the library and its peer dependencies.** The host app provides the peers, so there is one copy of React, MUI and Emotion:
+
+```bash
+npm install @sorayasm/vietri-ds
+npm install react react-dom @mui/material@6 @emotion/react @emotion/styled lucide-react
+```
+
+**2. Load the Inter font.** The library does not ship it. For example, in `index.html`:
+
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+  rel="stylesheet"
+/>
+```
+
+**3. Wrap the app in one of the Vietri themes.** Components read `theme.vietri`, so they must be rendered inside a Vietri theme (`editorialTheme`, `streamingTheme`, `observatoryTheme`, or your own with `createVietriTheme`). A plain MUI theme is not enough.
+
+```tsx
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { SkipLink, observatoryTheme } from "@sorayasm/vietri-ds";
+
+export function App() {
+  return (
+    <ThemeProvider theme={observatoryTheme}>
+      <CssBaseline />
+      <SkipLink href="#content" />
+      <main id="content">…</main>
+    </ThemeProvider>
+  );
+}
+```
+
+**4. Translate the texts.** Every user-facing default ("Menu", "Close", "Copy"…) is a prop, so an app in another language passes its own.
+
+`react`, `react-dom`, `@mui/material` (6.x), `@emotion/react`, `@emotion/styled` and `lucide-react` are peer dependencies. The `theme.vietri` types are added to MUI automatically when `@sorayasm/vietri-ds` is imported.
 
 ## Project structure
 
