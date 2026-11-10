@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import Link from "@mui/material/Link";
@@ -8,7 +9,7 @@ import Stack from "@mui/material/Stack";
 import SvgIcon from "@mui/material/SvgIcon";
 import Toolbar from "@mui/material/Toolbar";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
+import { useTheme, type Breakpoint } from "@mui/material/styles";
 import { Button } from "../Button";
 
 export interface NavLink {
@@ -31,6 +32,12 @@ export interface NavBarProps {
   menuLabel?: string;
   /** Label of the button that closes the menu on small screens. */
   closeLabel?: string;
+  /**
+   * Maximum width of the header content. Default "lg", the same width the
+   * page content usually has, so the header lines up with it. Use `false` to
+   * let it span the whole width.
+   */
+  maxWidth?: Breakpoint | false;
 }
 
 function MenuIcon() {
@@ -73,6 +80,7 @@ export function NavBar({
   ariaLabel = "Main",
   menuLabel = "Menu",
   closeLabel = "Close menu",
+  maxWidth = "lg",
 }: NavBarProps) {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"), { noSsr: true });
@@ -92,55 +100,58 @@ export function NavBar({
         borderColor: "divider",
       }}
     >
-      <Toolbar
-        sx={{
-          justifyContent: "space-between",
-          gap: 3,
-          minHeight: { xs: 64, md: 72 },
-        }}
-      >
-        <Link
-          href={brandHref}
-          underline="none"
-          color="text.primary"
-          sx={{ fontWeight: 600, letterSpacing: "-0.03em", fontSize: "1.125rem" }}
+      <Container maxWidth={maxWidth}>
+        <Toolbar
+          disableGutters
+          sx={{
+            justifyContent: "space-between",
+            gap: 3,
+            minHeight: { xs: 64, md: 72 },
+          }}
         >
-          {brand}
-        </Link>
+          <Link
+            href={brandHref}
+            underline="none"
+            color="text.primary"
+            sx={{ fontWeight: 600, letterSpacing: "-0.03em", fontSize: "1.125rem" }}
+          >
+            {brand}
+          </Link>
 
-        {isDesktop ? (
-          <Stack direction="row" alignItems="center" spacing={4}>
-            <Box component="nav" aria-label={ariaLabel}>
-              <Stack
-                component="ul"
-                direction="row"
-                spacing={4}
-                sx={{ listStyle: "none", m: 0, p: 0 }}
+          {isDesktop ? (
+            <Stack direction="row" alignItems="center" spacing={4}>
+              <Box component="nav" aria-label={ariaLabel}>
+                <Stack
+                  component="ul"
+                  direction="row"
+                  spacing={4}
+                  sx={{ listStyle: "none", m: 0, p: 0 }}
+                >
+                  {links.map((link) => (
+                    <li key={link.href}>
+                      <NavLinkItem link={link} />
+                    </li>
+                  ))}
+                </Stack>
+              </Box>
+              {actions}
+            </Stack>
+          ) : (
+            <Stack direction="row" alignItems="center" spacing={1}>
+              {actions}
+              <IconButton
+                edge="end"
+                color="inherit"
+                aria-label={menuLabel}
+                aria-expanded={open}
+                onClick={() => setOpen(true)}
               >
-                {links.map((link) => (
-                  <li key={link.href}>
-                    <NavLinkItem link={link} />
-                  </li>
-                ))}
-              </Stack>
-            </Box>
-            {actions}
-          </Stack>
-        ) : (
-          <Stack direction="row" alignItems="center" spacing={1}>
-            {actions}
-            <IconButton
-              edge="end"
-              color="inherit"
-              aria-label={menuLabel}
-              aria-expanded={open}
-              onClick={() => setOpen(true)}
-            >
-              <MenuIcon />
-            </IconButton>
-          </Stack>
-        )}
-      </Toolbar>
+                <MenuIcon />
+              </IconButton>
+            </Stack>
+          )}
+        </Toolbar>
+      </Container>
 
       {!isDesktop && (
         <Drawer anchor="right" open={open} onClose={close}>

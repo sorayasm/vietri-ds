@@ -4,6 +4,15 @@ All notable changes to Vietri DS are listed here. The project follows
 [Semantic Versioning](https://semver.org/); while the version is 0.x, a minor
 version may include breaking changes.
 
+## 0.2.1
+
+### Fixed
+
+- `NavBar` content is now limited to the large width (1200 px) by default, so
+  the header lines up with the page content instead of spanning the whole
+  screen. A new `maxWidth` prop (`"lg"` by default, `false` for full width)
+  controls it.
+
 ## 0.2.0
 
 ### Added

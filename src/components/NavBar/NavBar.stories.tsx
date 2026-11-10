@@ -16,7 +16,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: { layout: "fullscreen" },
   args: {
-    brand: "Vietri Design System",
+    brand: "Soraya Sacaan",
     brandHref: "#top",
     links,
   },
@@ -44,4 +44,14 @@ export const WithLanguageSelector: Story = {
 export const Mobile: Story = {
   parameters: { viewport: { defaultViewport: "mobile1" } },
   render: (args) => <WithLanguageSwitch {...args} />,
+};
+
+/** Lets the header span the whole width of the screen. */
+export const FullWidth: Story = {
+  args: { maxWidth: false },
+};
+
+/** A narrower header, for pages with a narrower layout. */
+export const Narrow: Story = {
+  args: { maxWidth: "md" },
 };
