@@ -3,8 +3,8 @@
  *
  * Each theme (editorial, streaming, observatory) has its own identity:
  *   - editorial    → the portfolio: black, white and gold
- *   - streaming    → "El Blues es Femenino": deep purple, violet, magenta, orange
- *   - observatory  → the Observatorio MDB: teal, cyan, amber, coral, red, purple
+ *   - streaming    → "El Blues es Femenino": deep purple, violet, lavender, magenta, cyan
+ *   - observatory  → the Mujeres del Blues Observatory: teal, cyan, amber, coral, red, purple
  *
  * Every pair that carries text meets WCAG AA (4.5:1). Brand colors that are
  * too light or too dark to carry text on their own (gold on white, violet on
@@ -51,6 +51,11 @@ export interface ThemeColors {
 
   /** Fill of footers, headers and banners. */
   surface: GradientStops;
+  /**
+   * Dark color laid over a hero image so the text stays readable. At 85% or
+   * more it keeps the text above 4.5:1 even over a pure white photo.
+   */
+  scrim: string;
   /** Text on surfaces. */
   onSurface: string;
   /** Secondary text on surfaces. */
@@ -102,6 +107,7 @@ export const editorialColors: ThemeColors = {
   actionHover: flat("#FDD07A"),
   onAction: "#000000",
   surface: flat("#000000"),
+  scrim: "#000000",
   onSurface: "#FFFFFF",
   onSurfaceSoft: "#D4D4D4",
   chip: "#F3EBDA",
@@ -124,7 +130,11 @@ export const editorialColors: ThemeColors = {
   },
 };
 
-/** El Blues es Femenino — deep purple, violet, magenta and orange. */
+/**
+ * El Blues es Femenino — deep purple, violet, lavender, magenta and cyan.
+ * Fills are flat, except the surface (footer and banners): a soft gradient
+ * between two violets.
+ */
 export const streamingColors: ThemeColors = {
   mode: "dark",
   bg: "#20123A",
@@ -132,16 +142,19 @@ export const streamingColors: ThemeColors = {
   ink: "#FFFFFF",
   inkSoft: "#D5CAEB",
   line: "rgba(255, 255, 255, 0.14)",
-  primary: "#F35F1C",
+  primary: "#1CDAF3",
   onPrimary: "#20123A",
   secondary: "#B99BFF",
   onSecondary: "#20123A",
-  action: flat("#F35F1C"),
-  actionHover: flat("#FF7B3F"),
+  action: flat("#1CDAF3"),
+  actionHover: flat("#6AE9FA"),
   onAction: "#20123A",
-  surface: flat("#693BCC"),
+  // Violet to lavender. The lavender end is #816CB2 darkened a hair (#7A64AE):
+  // the exact #816CB2 gives white text 4.45:1, just under the 4.5:1 minimum.
+  surface: ["#693BCC", "#7A64AE"],
+  scrim: "#20123A",
   onSurface: "#FFFFFF",
-  onSurfaceSoft: "#EDE6FB",
+  onSurfaceSoft: "#F7F3FF",
   chip: "#3C2866",
   chipHover: "#4A3478",
   onChip: "#FFFFFF",
@@ -156,15 +169,19 @@ export const streamingColors: ThemeColors = {
   brand: {
     night: "#20123A",
     violet: "#693BCC",
+    lavender: "#816CB2",
     magenta: "#CB1F9C",
-    orange: "#F35F1C",
+    cyan: "#1CDAF3",
   },
   derived: {
+    /** Lavender darkened to carry white text at 4.5:1 (the end of the surface gradient). */
+    lavenderDeep: "#7A64AE",
     /** Violet that reads as text on the night background (7.6:1). */
     lilac: "#B99BFF",
     /** Raised surface over night. */
     nightRaised: "#2D1B50",
-    orangeHover: "#FF7B3F",
+    /** Hovered primary action (12:1 with the dark text). */
+    cyanHover: "#6AE9FA",
   },
 };
 
@@ -186,6 +203,7 @@ export const observatoryColors: ThemeColors = {
   actionHover: flat("#015C68"),
   onAction: "#FFFFFF",
   surface: flat("#4A0875"),
+  scrim: "#2B1B3D",
   onSurface: "#FFFFFF",
   onSurfaceSoft: "#E8DCF4",
   chip: "#EFE8F6",

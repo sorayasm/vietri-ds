@@ -78,6 +78,11 @@ describe("MediaCard", () => {
     expect(container.querySelector('[aria-hidden="true"]')).not.toBeInTheDocument();
   });
 
+  it("accepts another shape for the picture (a square flyer)", () => {
+    renderWithTheme(<MediaCard title="Episode 1" aspectRatio="1 / 1" />);
+    expect(screen.getByRole("heading", { level: 3, name: "Episode 1" })).toBeInTheDocument();
+  });
+
   it.each([
     ["editorial", editorialTheme],
     ["streaming", streamingTheme],

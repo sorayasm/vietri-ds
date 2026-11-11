@@ -50,3 +50,16 @@ export const AsLink: Story = {
 export const WithImageAndBadge: Story = {
   args: { imageUrl: sampleImage, badge: "New", onClick: fn() },
 };
+
+/** A square picture, for example a flyer with its own text. */
+export const Square: Story = {
+  args: {
+    imageUrl:
+      "data:image/svg+xml;utf8," +
+      encodeURIComponent(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640"><rect width="640" height="640" fill="#7A64AE"/></svg>'
+      ),
+    aspectRatio: "1 / 1",
+    onClick: fn(),
+  },
+};

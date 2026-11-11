@@ -17,7 +17,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Each theme has its own flat palette: editorial (the portfolio), streaming (El Blues es Femenino) and observatory (the Observatorio MDB).",
+          "Each theme has its own flat palette: editorial (the portfolio), streaming (El Blues es Femenino) and observatory (the Mujeres del Blues Observatory).",
       },
     },
   },
@@ -80,7 +80,7 @@ export const Palettes: Story = {
       )}
       {section(
         "Streaming — El Blues es Femenino",
-        "Deep purple with violet, magenta and orange. Flat colors.",
+        "Deep purple with violet, lavender, magenta and cyan. Cyan is the primary action; the footer and banners use a soft gradient between the two violets.",
         streamingColors
       )}
       {section(

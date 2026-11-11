@@ -80,8 +80,21 @@ export function ContentRail({
         tabIndex={0}
         sx={(theme) => ({
           overflowX: "auto",
-          pb: 1,
+          // Room for the cards that grow on hover, which the scroll area would clip.
+          pt: 1.5,
+          pb: 2,
           scrollSnapType: "x proximity",
+          // A thin scrollbar in the theme's text color, instead of the heavy one of
+          // the system. Still visible (it uses the secondary text color), so people
+          // who scroll with a mouse can see there is more to the right.
+          scrollbarWidth: "thin",
+          scrollbarColor: `${theme.palette.text.secondary} transparent`,
+          "&::-webkit-scrollbar": { height: 8 },
+          "&::-webkit-scrollbar-track": { backgroundColor: "transparent" },
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: theme.palette.text.secondary,
+            borderRadius: 4,
+          },
           "&:focus-visible": {
             outline: `2px solid ${theme.palette.primary.main}`,
             outlineOffset: 2,

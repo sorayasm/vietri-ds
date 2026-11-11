@@ -29,8 +29,12 @@ const preview: Preview = {
   initialGlobals: { theme: "editorial" },
   parameters: {
     layout: "padded",
-    // The theme decides the background; the Backgrounds toolbar would fight it.
     backgrounds: { disable: true, disabled: true },
+    options: {
+    storySort: {
+      order: ["Vietri", "Guides", "Foundations", "Components", "Data"],
+    },
+  },
   },
   decorators: [
     (Story, context) => {

@@ -22,7 +22,7 @@ export const Introduction: Story = {
       }}
     >
       <Typography variant="overline" color="secondary">
-        DESIGN SYSTEM · v0.1
+        DESIGN SYSTEM · v0.3
       </Typography>
       <Typography variant="h1" sx={{ mt: 2, mb: 3 }}>
         Vietri DS

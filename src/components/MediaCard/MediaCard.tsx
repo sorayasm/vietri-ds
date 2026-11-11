@@ -28,6 +28,8 @@ export interface MediaCardProps {
   level?: HeadingLevel;
   /** Shows a play icon over the thumbnail. Default true. */
   playIcon?: boolean;
+  /** Shape of the picture, for example "1 / 1" for a square flyer. Default "16 / 9". */
+  aspectRatio?: string;
 }
 
 /**
@@ -47,6 +49,7 @@ export function MediaCard({
   onClick,
   level = 3,
   playIcon = true,
+  aspectRatio = "16 / 9",
 }: MediaCardProps) {
   const heading = `h${level}` as `h${HeadingLevel}`;
   const interactive = Boolean(href || onClick);
@@ -69,24 +72,40 @@ export function MediaCard({
         position: "relative",
         height: "100%",
         overflow: "hidden",
-        ...(interactive && { "&:hover": { borderColor: theme.palette.primary.main } }),
+        transition: "transform 250ms ease, box-shadow 250ms ease, border-color 250ms ease",
+        ...(interactive && {
+          "&:hover": {
+            transform: "scale(1.03)",
+            boxShadow: theme.vietri.shadow.lg,
+            borderColor: theme.palette.primary.main,
+          },
+          "&:hover .media-card-image": { transform: "scale(1.06)" },
+        }),
         ...cardFocusRing(theme),
       })}
     >
       <Box
         sx={(theme) => ({
           position: "relative",
-          aspectRatio: "16 / 9",
+          aspectRatio,
+          overflow: "hidden",
           bgcolor: theme.vietri.color.chip,
         })}
       >
         {imageUrl && (
           <Box
             component="img"
+            className="media-card-image"
             src={imageUrl}
             alt=""
             loading="lazy"
-            sx={{ display: "block", width: "100%", height: "100%", objectFit: "cover" }}
+            sx={{
+              display: "block",
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              transition: "transform 400ms ease",
+            }}
           />
         )}
         {playIcon && (

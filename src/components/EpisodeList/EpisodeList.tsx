@@ -14,8 +14,10 @@ export interface Episode {
   description?: string;
   /** Extra line, for example guest and duration. */
   meta?: string;
-  /** Small thumbnail (16:9). */
+  /** Small picture. */
   imageUrl?: string;
+  /** Shape of the picture, for example "1 / 1" for a square flyer. Default "16 / 9". */
+  imageAspectRatio?: string;
   /** Makes the row a link. */
   href?: string;
 }
@@ -121,7 +123,7 @@ export function EpisodeList({
                 sx={{
                   flex: "0 0 auto",
                   width: { xs: 112, sm: 160 },
-                  aspectRatio: "16 / 9",
+                  aspectRatio: episode.imageAspectRatio ?? "16 / 9",
                   objectFit: "cover",
                   borderRadius: 1,
                 }}

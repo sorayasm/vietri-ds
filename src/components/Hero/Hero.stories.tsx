@@ -45,3 +45,26 @@ export const Centered: Story = {
     actions: <Button size="large">Get started</Button>,
   },
 };
+
+// A flat-color picture, so the story does not depend on the network.
+const sampleImage =
+  "data:image/svg+xml;utf8," +
+  encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="700"><rect width="1600" height="700" fill="#CCCCCC"/><circle cx="1250" cy="260" r="240" fill="#FFFFFF"/><circle cx="1000" cy="480" r="160" fill="#F2F2F2"/></svg>'
+  );
+
+/** A background image under a dark layer. Try a very light picture: the text stays readable. */
+export const WithImage: Story = {
+  args: {
+    image: sampleImage,
+    imagePosition: "center",
+    actions: (
+      <>
+        <Button size="large">Play</Button>
+        <Button size="large" variant="outlined">
+          More information
+        </Button>
+      </>
+    ),
+  },
+};

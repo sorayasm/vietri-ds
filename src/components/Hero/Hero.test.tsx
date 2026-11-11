@@ -39,6 +39,28 @@ describe("Hero", () => {
     expect(screen.queryByRole("region")).not.toBeInTheDocument();
   });
 
+  it("with a background image the content stays the same", () => {
+    const { container } = renderWithTheme(
+      <Hero
+        title="Title"
+        description="Text"
+        actions={<button>Play</button>}
+        image="https://example.com/photo.jpg"
+      />
+    );
+    expect(screen.getByRole("heading", { level: 1, name: "Title" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Play" })).toBeInTheDocument();
+    // The image is a decorative background, not an <img> that screen readers would find.
+    expect(container.querySelector("img")).not.toBeInTheDocument();
+  });
+
+  it("accepts an image position", () => {
+    renderWithTheme(
+      <Hero title="Title" image="https://example.com/photo.jpg" imagePosition="center 30%" />
+    );
+    expect(screen.getByRole("heading", { level: 1, name: "Title" })).toBeInTheDocument();
+  });
+
   it.each([
     ["editorial", editorialTheme],
     ["streaming", streamingTheme],

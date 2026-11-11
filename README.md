@@ -46,23 +46,37 @@ Each theme has its own identity.
 | Theme         | Brand colors                                                        | Notes |
 | ------------- | ------------------------------------------------------------------- | ----- |
 | `editorial`   | black `#000000`, gold `#DBAC5B`, white `#FFFFFF`, light gold `#FDD07A` | Gold is used as a fill with black text. Bronze `#7A5718` carries gold-colored text. |
-| `streaming`   | night `#20123A`, violet `#693BCC`, magenta `#CB1F9C`, orange `#F35F1C` | Dark theme. Orange is the primary action; violet fills footers and banners. |
+| `streaming`   | night `#20123A`, violet `#693BCC`, lavender `#816CB2`, magenta `#CB1F9C`, cyan `#1CDAF3` | Dark theme. Cyan is the primary action; footers and banners use a soft gradient from violet to lavender. |
 | `observatory` | teal `#027381`, cyan `#0EB9CB`, amber `#FFC23D`, coral `#FF7751`, vermilion `#F33829`, crimson `#C41E32`, purple `#4A0875` | Light theme. Teal carries actions, purple the footer. Cyan, amber, coral and vermilion are fills for charts and highlights. |
 
 Every palette is a typed `ThemeColors` object (`editorialColors`, `streamingColors`, `observatoryColors`). The active theme's palette is available inside components as `theme.vietri.color`.
 
 Brand colors that cannot carry text on their own (gold on white, violet on deep purple, cyan or amber on white) are only used as **fills** next to a text color that reaches 4.5:1, or replaced by a text-safe sibling. Every text pair in every theme is tested for WCAG AA.
 
-## Flat colors
+## Fills and gradients
 
-No theme uses gradients: every fill is a solid color. The structure that would allow them is still there. A fill is described by a pair of colors in `ThemeColors` (`action`, `actionHover`, `surface`), and a flat theme simply repeats the same color twice. A theme that wants a gradient only needs two different colors, and the tests already check contrast at both ends of every fill.
+Almost every fill is a solid color. The exception is the **surface** of the Streaming theme (footers and banners), which is a soft gradient from violet `#693BCC` to lavender. The lavender end is `#7A64AE`, the supplied `#816CB2` darkened a hair: with the exact color, white text reaches 4.45:1, just under the 4.5:1 minimum.
 
-They reach components through `theme.vietri.gradient`:
+A fill is described by a pair of colors in `ThemeColors` (`action`, `actionHover`, `surface`). A flat fill repeats the same color twice, and a gradient uses two different ones. They reach components through `theme.vietri.gradient`:
 
 - `surface` — headers, footers and banners (light text on top)
 - `action` and `actionHover` — primary buttons
 
-`ThemeColors.glow` can also add soft decorative lights to the footer. It is `null` in every theme today.
+The tests check contrast at **both ends** of every fill, so a gradient never hides a low-contrast corner. `ThemeColors.glow` can also add soft decorative lights to the footer; it is `null` in every theme today.
+
+## Hero with an image
+
+`Hero` accepts an `image` (a background picture). A dark layer (`theme.vietri.color.scrim`) sits over it and the text stays in the left 60%, where that layer is at least 86% opaque, so the text keeps WCAG AA contrast **whatever the photo**, even a pure white one (a test checks it). If the image fails to load, the theme surface shows instead. The image is decorative: do not put information in it.
+
+```tsx
+<Hero
+  image="/key-art.webp"
+  imagePosition="center 30%"
+  title="El Blues es Femenino"
+  description="…"
+  actions={<Button size="large">Play</Button>}
+/>
+```
 
 ## Categorical colors
 

@@ -4,6 +4,46 @@ All notable changes to Vietri DS are listed here. The project follows
 [Semantic Versioning](https://semver.org/); while the version is 0.x, a minor
 version may include breaking changes.
 
+## 0.3.1
+
+### Added
+
+- `MediaCard` accepts `aspectRatio` and each `EpisodeList` episode accepts
+  `imageAspectRatio`, so square pictures (such as flyers) are not cropped to 16:9.
+
+## 0.3.0
+
+### Added
+
+- `Hero` accepts an `image` and an `imagePosition`: a decorative background
+  picture under a dark layer. The text keeps AA contrast over any photo.
+- `ThemeColors.scrim`: the dark layer color of each theme.
+
+### Changed
+
+- `MediaCard` grows slightly on hover and its image zooms, like a streaming
+  catalogue.
+- `ContentRail` leaves room above and below its cards so the growing cards are
+  not clipped.
+
+## 0.2.4
+
+### Changed
+
+- Streaming theme: the primary action is now cyan (`#1CDAF3`, was orange), and
+  the surface of footers and banners is a soft gradient from violet to lavender
+  (`#693BCC` to `#7A64AE`). `#7A64AE` is the supplied `#816CB2` darkened a hair,
+  so white text keeps a 4.5:1 contrast at that end. Soft text on surfaces is
+  now `#F7F3FF`.
+- The Streaming palette lists `lavender` and `cyan` instead of `orange`.
+
+## 0.2.3
+
+### Changed
+
+- `ContentRail` uses a thin scrollbar in the theme's secondary text color
+  instead of the heavy scrollbar of the system, which clashed with the design.
+
 ## 0.2.2
 
 ### Documentation
