@@ -53,6 +53,10 @@ export function Footer({
         py: 6,
         color: theme.vietri.color.onSurface,
         background: theme.vietri.gradient.surface,
+        // A thin rule along the top, when the theme defines one.
+        ...(theme.vietri.color.surfaceRule && {
+          borderTop: `4px solid ${theme.vietri.color.surfaceRule}`,
+        }),
         // The default focus ring is not visible on dark backgrounds.
         "& a:focus-visible, & button:focus-visible": {
           outline: "2px solid",

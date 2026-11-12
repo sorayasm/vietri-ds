@@ -54,6 +54,12 @@ describe("Hero", () => {
     expect(container.querySelector("img")).not.toBeInTheDocument();
   });
 
+  it("draws a decorative rule under the title when asked", () => {
+    const { container } = renderWithTheme(<Hero title="Title" accentRule />);
+    expect(screen.getByRole("heading", { level: 1, name: "Title" })).toBeInTheDocument();
+    expect(container.querySelector('[aria-hidden="true"]')).toBeInTheDocument();
+  });
+
   it("accepts an image position", () => {
     renderWithTheme(
       <Hero title="Title" image="https://example.com/photo.jpg" imagePosition="center 30%" />

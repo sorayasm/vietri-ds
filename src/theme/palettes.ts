@@ -3,7 +3,7 @@
  *
  * Each theme (editorial, streaming, observatory) has its own identity:
  *   - editorial    → the portfolio: black, white and gold
- *   - streaming    → "El Blues es Femenino": deep purple, orange, teal, violet, lavender, magenta
+ *   - streaming    → "El Blues es Femenino": deep violet and orange
  *   - observatory  → the Mujeres del Blues Observatory: teal, cyan, amber, coral, red, purple
  *
  * Every pair that carries text meets WCAG AA (4.5:1). Brand colors that are
@@ -48,12 +48,34 @@ export interface ThemeColors {
   actionHover: GradientStops;
   /** Text on action fills. */
   onAction: string;
+  /**
+   * Optional color of the line of outlined buttons (a neutral one, so that the
+   * line does not compete with the orange of the action). The label of those buttons
+   * uses the text color. Hover and focus use the primary color. Needs 3:1 on the page
+   * and on the cards.
+   */
+  outline?: string;
+
+  /**
+   * A brighter accent for the fill of large buttons, where the label is white and
+   * bold (at least 18.7px, which counts as large text and only needs 3:1), and for
+   * the short rule under a hero title. Can be livelier than `action`. Optional.
+   */
+  accentLarge?: string;
+  /** Hover of `accentLarge`. */
+  accentLargeHover?: string;
 
   /** Fill of footers, headers and banners. */
   surface: GradientStops;
+  /** Optional middle color of the surface gradient (at 60%). */
+  surfaceMid?: string;
+  /** Angle of the surface gradient in degrees. Default 135. */
+  surfaceAngle?: number;
+  /** Optional 4px rule along the top edge of footers. Decorative: it carries no text. */
+  surfaceRule?: string;
   /**
-   * Dark color laid over a hero image so the text stays readable. At 85% or
-   * more it keeps the text above 4.5:1 even over a pure white photo.
+   * Color laid over a hero image so the text stays readable. At 74% or more it
+   * keeps white text above 4.5:1 even over a pure white photo.
    */
   scrim: string;
   /** Text on surfaces. */
@@ -131,13 +153,18 @@ export const editorialColors: ThemeColors = {
 };
 
 /**
- * El Blues es Femenino — deep purple, orange, teal, violet, lavender and magenta.
- * Fills are flat, except the surface (footer and banners): a calm gradient from
- * a deep teal to the raised purple of the cards.
+ * El Blues es Femenino — deep violet and orange.
  *
- * Orange carries the actions, in two versions: a burnt orange for button fills
- * (white text on it) and a lighter one for links, outlines and focus rings on the
- * dark backgrounds. The brand orange (#F35F1C) is too light for white text.
+ * Orange carries everything you can press, in three versions chosen by where it
+ * sits: a burnt orange for button fills with white text, a light orange for links,
+ * outlines and arrows on the dark backgrounds, and the brand orange for large text
+ * and large buttons (a bold white label of 19px reaches 3.25:1, enough for large text).
+ *
+ * Everything else is violet and lilac: a flat deep violet footer with a thin orange
+ * rule along its top, lilac lines on outlined buttons, white text. The rule of thumb:
+ * orange is for acting, and it goes as a surface or over a dark flat background. On
+ * the violet of a hero, or on a gradient, lines and texts are lilac or white, because
+ * orange there gives 3.75:1 and vibrates.
  */
 export const streamingColors: ThemeColors = {
   mode: "dark",
@@ -155,12 +182,18 @@ export const streamingColors: ThemeColors = {
   action: flat("#C8460B"),
   actionHover: flat("#B63F0A"),
   onAction: "#FFFFFF",
-  // Deep teal to the purple of the cards: dark and calm, with 7:1 or more for white text.
-  // (The earlier violet-to-lavender gradient was bright and had the lowest contrast.)
-  surface: ["#0F5C66", "#2D1B50"],
-  // The layer over a hero photo: a deep lilac, the lightest one that still gives
-  // AA contrast to white text over a pure white photo (a deep purple was too dark).
-  scrim: "#3B2562",
+  // The line of outlined buttons: lilac (7.6:1 on the page, 6.6:1 on the cards).
+  outline: "#B99BFF",
+  // The brand orange, for large buttons (their bold label is large text) and for the
+  // short rule under a hero title.
+  accentLarge: "#F35F1C",
+  accentLargeHover: "#DE520F",
+  // A flat violet: white text at 12.9:1. A thin orange rule marks the top of the footer.
+  surface: ["#3B2562", "#3B2562"],
+  surfaceRule: "#F35F1C",
+  // The layer over a hero photo: the brightest violet that keeps white text at 4.5:1
+  // over a pure white photo with the layer at 74%.
+  scrim: "#4E2B8B",
   onSurface: "#FFFFFF",
   onSurfaceSoft: "#F7F3FF",
   chip: "#3C2866",
@@ -178,10 +211,8 @@ export const streamingColors: ThemeColors = {
     night: "#20123A",
     violet: "#693BCC",
     lavender: "#816CB2",
-    /** The deep teal of the footer and banners. */
-    teal: "#0F5C66",
     magenta: "#CB1F9C",
-    /** The brand orange. Too light for white text: use it as a decoration, not under a label. */
+    /** The brand orange. */
     orange: "#F35F1C",
   },
   derived: {
@@ -193,8 +224,12 @@ export const streamingColors: ThemeColors = {
     orangeText: "#F4793F",
     /** Burnt orange of the button fill (white text at 4.8:1). */
     orangeDeep: "#C8460B",
-    /** Hovered button fill, darker (white text at 5.8:1). */
+    /** Hovered button fill, darker (white text at 5.7:1). */
     orangeHover: "#B63F0A",
+    /** Violet of the hero layer. */
+    layerViolet: "#4E2B8B",
+    /** The flat violet of the footer. */
+    footerViolet: "#3B2562",
   },
 };
 

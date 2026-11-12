@@ -1,6 +1,6 @@
-import type { ThemeOptions } from "@mui/material/styles";
+import { alpha, type ThemeOptions } from "@mui/material/styles";
 import "./augmentation";
-import { tokens } from "./tokens";
+import { linearGradient, tokens } from "./tokens";
 
 /**
  * Visual identity of the MUI components. It lives in the theme so it
@@ -28,13 +28,17 @@ export const components: ThemeOptions["components"] = {
         // An outlined button has a 1px border: take it from the padding so that
         // every variant of the same size is exactly as tall and as wide.
         const border = ownerState.variant === "outlined" ? 1 : 0;
+        // A theme with `accentLarge` (a lively orange that only works for large text)
+        // makes the label of large buttons bold and 19px, which counts as large text.
+        const largeLabel = Boolean(theme.vietri.color.accentLarge);
         return {
           borderRadius: tokens.radius.md,
           // A generous "large" button, for the main action of a banner.
           ...(ownerState.size === "large" && {
             minHeight: 52,
             padding: `${12 - border}px ${32 - border}px`,
-            fontSize: "1rem",
+            fontSize: largeLabel ? "1.2rem" : "1rem",
+            ...(largeLabel && { fontWeight: 700 }),
           }),
           "&:focus-visible": {
             outline: `2px solid ${theme.palette.primary.main}`,
@@ -42,17 +46,42 @@ export const components: ThemeOptions["components"] = {
           },
         };
       },
+      // Outlined buttons: a neutral line (lilac in the Streaming theme) with the text color,
+      // so they do not compete with the orange action. Hover and focus bring the primary color.
+      outlinedPrimary: ({ theme }) => {
+        const line = theme.vietri.color.outline;
+        if (!line) return {};
+        return {
+          borderColor: line,
+          color: theme.palette.text.primary,
+          "&:hover": {
+            borderColor: theme.palette.primary.main,
+            backgroundColor: alpha(theme.palette.primary.main, 0.14),
+          },
+        };
+      },
       // Primary action fill. Flat in most themes, a soft gradient in the
       // Observatory. The text color meets AA at both ends of the fill.
-      containedPrimary: ({ theme }) => ({
-        color: theme.vietri.color.onAction,
-        backgroundImage: theme.vietri.gradient.action,
-        "&:hover": { backgroundImage: theme.vietri.gradient.actionHover },
-        "&.Mui-disabled": {
-          backgroundImage: "none",
-          color: theme.palette.action.disabled,
-        },
-      }),
+      containedPrimary: ({ theme, ownerState }) => {
+        const { accentLarge, accentLargeHover } = theme.vietri.color;
+        // Large buttons use the lively accent (their bold label is large text).
+        const lively = ownerState.size === "large" && accentLarge;
+        return {
+          color: theme.vietri.color.onAction,
+          backgroundImage: lively
+            ? linearGradient(accentLarge, accentLarge)
+            : theme.vietri.gradient.action,
+          "&:hover": {
+            backgroundImage: lively
+              ? linearGradient(accentLargeHover ?? accentLarge, accentLargeHover ?? accentLarge)
+              : theme.vietri.gradient.actionHover,
+          },
+          "&.Mui-disabled": {
+            backgroundImage: "none",
+            color: theme.palette.action.disabled,
+          },
+        };
+      },
     },
   },
 

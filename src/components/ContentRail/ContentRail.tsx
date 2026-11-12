@@ -84,15 +84,15 @@ export function ContentRail({
           pt: 1.5,
           pb: 2,
           scrollSnapType: "x proximity",
-          // A thin scrollbar in the theme's text color, instead of the heavy one of
-          // the system. Still visible (it uses the secondary text color), so people
+          // A thin scrollbar in the theme's primary color, instead of the heavy one of
+          // the system. Still visible (it reads against the page), so people
           // who scroll with a mouse can see there is more to the right.
           scrollbarWidth: "thin",
-          scrollbarColor: `${theme.palette.text.secondary} transparent`,
+          scrollbarColor: `${theme.palette.primary.main} transparent`,
           "&::-webkit-scrollbar": { height: 8 },
           "&::-webkit-scrollbar-track": { backgroundColor: "transparent" },
           "&::-webkit-scrollbar-thumb": {
-            backgroundColor: theme.palette.text.secondary,
+            backgroundColor: theme.palette.primary.main,
             borderRadius: 4,
           },
           "&:focus-visible": {

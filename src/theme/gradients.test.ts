@@ -36,15 +36,26 @@ describe("fills and gradients", () => {
     }
   });
 
-  it("only the streaming surface uses a soft gradient", () => {
-    expect(isFlat(editorialColors.surface)).toBe(true);
-    expect(isFlat(observatoryColors.surface)).toBe(true);
-    expect(isFlat(streamingColors.surface)).toBe(false);
+  it("every surface is a flat color today", () => {
+    for (const [, colors] of cases) expect(isFlat(colors.surface)).toBe(true);
   });
 
-  it("the streaming gradient goes from teal to the purple of the cards", () => {
-    expect(streamingColors.surface[0]).toBe(streamingColors.brand.teal);
-    expect(streamingColors.surface[1]).toBe(streamingColors.derived.nightRaised);
+  it("the streaming footer is a flat violet with an orange rule", () => {
+    expect(streamingColors.surface[0]).toBe(streamingColors.derived.footerViolet);
+    expect(streamingColors.surfaceRule).toBe(streamingColors.brand.orange);
+    expect(editorialColors.surfaceRule).toBeUndefined();
+    expect(observatoryColors.surfaceRule).toBeUndefined();
+  });
+
+  it("a middle color and an angle reach the CSS of the surface", () => {
+    const g = createGradients({
+      surface: ["#000000", "#FFFFFF"],
+      surfaceMid: "#777777",
+      surfaceAngle: 90,
+      action: ["#111111", "#111111"],
+      actionHover: ["#222222", "#222222"],
+    });
+    expect(g.surface).toBe("linear-gradient(90deg, #000000 0%, #777777 60%, #FFFFFF 100%)");
   });
 
   it("no theme draws decorative glows", () => {
@@ -73,7 +84,8 @@ describe("contrast on fills and gradients (WCAG AA, 4.5:1)", () => {
   });
 
   it.each(cases)("%s: text on the surface is readable at every color", (_name, colors) => {
-    for (const stop of colors.surface) {
+    const stops = [...colors.surface, ...(colors.surfaceMid ? [colors.surfaceMid] : [])];
+    for (const stop of stops) {
       expect(getContrastRatio(colors.onSurface, stop)).toBeGreaterThanOrEqual(AA);
       expect(getContrastRatio(colors.onSurfaceSoft, stop)).toBeGreaterThanOrEqual(AA);
     }
@@ -88,10 +100,10 @@ function overWhite(color: string, amount: number): string {
 }
 
 describe("text over a hero image (WCAG AA, 4.5:1)", () => {
-  // Under the text the dark layer is at least 74% opaque. We test 70%, over the worst
-  // possible photo: pure white.
+  // Under the text the layer is at least 74% opaque. We test exactly 74%, over the
+  // worst possible photo: pure white.
   it.each(cases)("%s: text stays readable over a white photo", (_name, colors) => {
-    const worst = overWhite(colors.scrim, 0.7);
+    const worst = overWhite(colors.scrim, 0.74);
     expect(getContrastRatio(colors.onSurface, worst)).toBeGreaterThanOrEqual(AA);
     expect(getContrastRatio(colors.onSurfaceSoft, worst)).toBeGreaterThanOrEqual(AA);
   });
@@ -115,5 +127,43 @@ describe("orange as the interactive color of the streaming theme", () => {
     for (const fill of [...streamingColors.action, ...streamingColors.actionHover]) {
       expect(getContrastRatio(streamingColors.onAction, fill)).toBeGreaterThanOrEqual(AA);
     }
+  });
+});
+
+describe("the lively orange of large buttons (streaming)", () => {
+  const large = 3; // WCAG AA for large text: 18.7px bold or 24px
+
+  it("a bold white label on the large button reaches the minimum for large text", () => {
+    expect(getContrastRatio("#FFFFFF", streamingColors.accentLarge!)).toBeGreaterThanOrEqual(large);
+    expect(getContrastRatio("#FFFFFF", streamingColors.accentLargeHover!)).toBeGreaterThanOrEqual(large);
+  });
+
+  it("only the streaming theme uses it", () => {
+    expect(editorialColors.accentLarge).toBeUndefined();
+    expect(observatoryColors.accentLarge).toBeUndefined();
+  });
+});
+
+describe("the neutral line of outlined buttons (streaming)", () => {
+  const UI = 3; // WCAG 1.4.11: the edge of a control against its background
+
+  it("the line is visible on the page and on the cards", () => {
+    expect(getContrastRatio(streamingColors.outline!, streamingColors.bg)).toBeGreaterThanOrEqual(UI);
+    expect(getContrastRatio(streamingColors.outline!, streamingColors.paper)).toBeGreaterThanOrEqual(UI);
+  });
+
+  it("the label (text color) reads on the page and on the cards", () => {
+    expect(getContrastRatio(streamingColors.ink, streamingColors.bg)).toBeGreaterThanOrEqual(AA);
+    expect(getContrastRatio(streamingColors.ink, streamingColors.paper)).toBeGreaterThanOrEqual(AA);
+  });
+
+  it("the hover line (the primary color) is visible too", () => {
+    expect(getContrastRatio(streamingColors.primary, streamingColors.bg)).toBeGreaterThanOrEqual(UI);
+    expect(getContrastRatio(streamingColors.primary, streamingColors.paper)).toBeGreaterThanOrEqual(UI);
+  });
+
+  it("only the streaming theme defines it", () => {
+    expect(editorialColors.outline).toBeUndefined();
+    expect(observatoryColors.outline).toBeUndefined();
   });
 });

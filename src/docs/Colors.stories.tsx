@@ -80,7 +80,7 @@ export const Palettes: Story = {
       )}
       {section(
         "Streaming — El Blues es Femenino",
-        "Deep purple with orange, teal, violet, lavender and magenta. A burnt orange fills the buttons (white text) and a lighter orange colors links and outlines; the footer and banners use a calm gradient from a deep teal to purple.",
+        "Deep violet and orange. Orange is for acting: burnt orange fills the buttons (white text), light orange colors links and focus, and the brand orange fills large buttons and draws the rule of the footer and the hero. Outlined buttons are lilac and the footer is a flat violet.",
         streamingColors
       )}
       {section(

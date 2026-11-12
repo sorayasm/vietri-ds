@@ -7,8 +7,9 @@ import type { GradientStops, ThemeColors } from "./palettes";
 
 export type { GradientStops };
 
-export function linearGradient(from: string, to: string, angle = 135): string {
-  return `linear-gradient(${angle}deg, ${from} 0%, ${to} 100%)`;
+export function linearGradient(from: string, to: string, angle = 135, mid?: string): string {
+  const middle = mid ? `, ${mid} 60%` : "";
+  return `linear-gradient(${angle}deg, ${from} 0%${middle}, ${to} 100%)`;
 }
 
 export interface Gradients {
@@ -24,10 +25,16 @@ export interface Gradients {
  * equal the result looks flat, so flat themes and gradient themes share code.
  */
 export function createGradients(
-  colors: Pick<ThemeColors, "surface" | "action" | "actionHover">
+  colors: Pick<ThemeColors, "surface" | "action" | "actionHover"> &
+    Partial<Pick<ThemeColors, "surfaceMid" | "surfaceAngle">>
 ): Gradients {
   return {
-    surface: linearGradient(...colors.surface),
+    surface: linearGradient(
+      colors.surface[0],
+      colors.surface[1],
+      colors.surfaceAngle ?? 135,
+      colors.surfaceMid
+    ),
     action: linearGradient(...colors.action),
     actionHover: linearGradient(...colors.actionHover),
   };

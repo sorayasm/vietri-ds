@@ -18,6 +18,12 @@ export interface HeroProps {
   level?: HeadingLevel;
   align?: "left" | "center";
   /**
+   * Draws a short rule under the title, in the theme's `accentLarge` (or the primary
+   * color). It is decorative. The title itself stays in the text color, so it is
+   * readable over any photo.
+   */
+  accentRule?: boolean;
+  /**
    * Address of a background image. It is decorative (it carries no text
    * alternative), so do not put information in it. A dark layer (the theme's
    * `scrim`) sits over it, at least 74% opaque under the text, so the text keeps
@@ -41,6 +47,7 @@ export function Hero({
   actions,
   level = 1,
   align = "left",
+  accentRule = false,
   image,
   imagePosition = "center",
 }: HeroProps) {
@@ -86,6 +93,11 @@ export function Hero({
             color: "inherit",
             borderColor: "currentColor",
           },
+          // Over the photo the hover is a white veil, not the orange of the page.
+          "& .MuiButton-outlined:hover, & .MuiButton-text:hover": {
+            borderColor: "currentColor",
+            backgroundColor: alpha(theme.vietri.color.onSurface, 0.14),
+          },
         };
       }}
     >
@@ -108,9 +120,24 @@ export function Hero({
               {eyebrow}
             </Typography>
           )}
-          <Typography component={heading} variant="h2" sx={{ maxWidth: 900 }}>
+          <Typography
+            component={heading}
+            variant="h2"
+            sx={{ maxWidth: 900 }}
+          >
             {title}
           </Typography>
+          {accentRule && (
+            <Box
+              aria-hidden="true"
+              sx={(theme) => ({
+                width: 72,
+                height: 6,
+                borderRadius: 3,
+                bgcolor: theme.vietri.color.accentLarge ?? theme.palette.primary.main,
+              })}
+            />
+          )}
           {description && (
             <Typography
               variant="body1"

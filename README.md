@@ -2,7 +2,7 @@
 
 A themeable design system built with React, TypeScript and MUI. It is the shared UI foundation for the projects in the [Soraya Sacaan](https://sorayasacaan.com) portfolio: the portfolio site, the streaming platform and the Mujeres del Blues Observatory.
 
-> **Status:** early development (v0.1). Foundations, themes, tooling and the first set of components are in place.
+> **Status:** pre-1.0 (0.4). The portfolio and the streaming platform already use it. While the version is 0.x, a minor version may include breaking changes: see the [changelog](CHANGELOG.md).
 
 ## Goals
 
@@ -22,7 +22,7 @@ The package is published on npm as [`@sorayasm/vietri-ds`](https://www.npmjs.com
 | Theme         | Mode  | Used by                     |
 | ------------- | ----- | --------------------------- |
 | `editorial`   | Light | Portfolio (Soraya Sacaan)   |
-| `streaming`   | Dark  | El Blues es Femenino        |
+| `streaming`   | night `#20123A`, burnt orange `#C8460B`, light orange `#F4793F`, brand orange `#F35F1C`, violet `#4E2B8B` and `#3B2562`, lilac `#B99BFF`, magenta `#CB1F9C` | Dark theme. Orange is for acting; violet and lilac are for everything else. |
 | `observatory` | Light | Mujeres del Blues Observatory |
 
 All three themes are built from the same `baseOptions` (typography, spacing, shape, breakpoints, component styles) and only differ in their palette. Each palette lives in `src/theme/palettes.ts`, so changing a color means editing one file.
@@ -55,38 +55,43 @@ Brand colors that cannot carry text on their own (gold on white, violet on deep 
 
 ## Fills and gradients
 
-Almost every fill is a solid color. The exception is the **surface** of the Streaming theme (footers and banners), which is a calm gradient from a deep teal (`#0F5C66`) to the purple of the cards (`#2D1B50`). White text keeps 7:1 or more at both ends.
-
-A fill is described by a pair of colors in `ThemeColors` (`action`, `actionHover`, `surface`). A flat fill repeats the same color twice, and a gradient uses two different ones. They reach components through `theme.vietri.gradient`:
+Every fill in the three themes is a solid color. A fill is described by a pair of colors in `ThemeColors` (`action`, `actionHover`, `surface`): a flat fill repeats the same color twice, and a gradient uses two different ones. A surface can also have a middle color (`surfaceMid`) and an angle (`surfaceAngle`); no theme uses them today. They reach components through `theme.vietri.gradient`:
 
 - `surface` — headers, footers and banners (light text on top)
 - `action` and `actionHover` — primary buttons
 
-The tests check contrast at **both ends** of every fill, so a gradient never hides a low-contrast corner. `ThemeColors.glow` can also add soft decorative lights to the footer; it is `null` in every theme today.
+The tests check contrast at **every color** of every fill. A `Footer` draws a thin rule along its top edge when the theme defines `surfaceRule` (the Streaming theme does, in orange). `ThemeColors.glow` can add soft decorative lights to the footer; it is `null` in every theme today.
 
 ## Interactive color
 
-In the Streaming theme everything you can press is orange, in the version that reads best where it sits:
+In the Streaming theme **orange is for acting; violet and lilac are for everything else.** Orange goes as a surface (a filled button) or over a dark, flat background. On the violet of a hero, or on a gradient, lines and texts are lilac or white: orange there gives 3.75:1 and the edges vibrate.
 
 | Element | Color |
 | --- | --- |
-| Button fill | burnt orange `#C8460B`, white text (4.8:1) |
-| Outlined and text buttons, arrows of `ContentRail`, focus rings | light orange `#F4793F` (6.3:1 on the page, 5.5:1 on cards) |
+| Button fill (medium, small) | burnt orange `#C8460B`, white label (4.8:1) |
+| Large button fill | brand orange `#F35F1C`, bold white 19px label: it counts as large text, and 3.25:1 is enough (3:1) |
+| Outlined buttons | lilac line `#B99BFF` (7.6:1 on the page, 6.6:1 on cards), white label. Hover: orange line and an orange veil. Focus: orange ring |
+| Text buttons, arrows and scrollbar of `ContentRail`, focus rings | light orange `#F4793F` (6.3:1 on the page, 5.5:1 on cards) |
 | `NavBar` links (with `accentLinks`) | light orange; the current page is white and underlined |
+| `Footer` | flat violet `#3B2562`, white underlined links (12.9:1), a 4px orange rule on top |
+| `Hero` | white title with a short orange rule (`accentRule`); the secondary button has a white line |
 | Cards and episode lists | the border turns orange on hover and focus |
 
-Two places do **not** use orange, on purpose: the secondary button of a `Hero` (it sits over a photo, where only white text is guaranteed to read) and the links of the `Footer` (orange on the teal footer gives 2.8:1; they are white and underlined). Color is never the only clue: links in a navigation mark the current page with `aria-current` and an underline, and inline links keep their underline.
+Color is never the only clue: links in a navigation mark the current page with `aria-current` and an underline, and inline links keep their underline.
 
-`NavBar` keeps muted links by default, so the other themes do not change. Pass `accentLinks` to use the primary color, only in a theme where it reads as text on the page background.
+`NavBar` and `Hero` keep their usual look by default, so the other themes do not change. Pass `accentLinks` (or `accentRule`) to use the orange. Only a theme that defines `outline` gets lilac lines on outlined buttons, and only one that defines `accentLarge` gets the bold 19px label on large buttons.
 
 ## Hero with an image
 
-`Hero` accepts an `image` (a background picture). A dark layer (`theme.vietri.color.scrim`) sits over it and the text stays in the left 60%, where that layer is at least 74% opaque, so the text keeps WCAG AA contrast **whatever the photo**, even a pure white one (a test checks it). If the image fails to load, the theme surface shows instead. The image is decorative: do not put information in it.
+`Hero` accepts an `image` (a background picture). A layer (`theme.vietri.color.scrim`) sits over it and the text stays in the left 60%, where that layer is at least 74% opaque, so the **white text and the buttons** keep WCAG AA contrast whatever the photo, even a pure white one (a test checks it). If the image fails to load, the theme surface shows instead. The image is decorative: do not put information in it.
+
+`accentRule` draws a short decorative rule under the title, in the accent orange. The title stays white.
 
 ```tsx
 <Hero
   image="/key-art.webp"
   imagePosition="center 30%"
+  accentRule
   title="El Blues es Femenino"
   description="…"
   actions={<Button size="large">Play</Button>}
@@ -192,12 +197,12 @@ npm install @sorayasm/vietri-ds
 npm install react react-dom @mui/material@6 @emotion/react @emotion/styled lucide-react
 ```
 
-**2. Load the Inter font.** The library does not ship it. For example, in `index.html`:
+**2. Load the Inter font.** The library does not ship it. For example, in `index.html`. Weight 700 is used by the large buttons of the Streaming theme (a bold label is what makes it count as large text):
 
 ```html
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link
-  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
   rel="stylesheet"
 />
 ```
@@ -293,5 +298,6 @@ vietri-ds/
 - [x] Storybook documentation (Welcome, Colors, Typography, Accessibility, Usage)
 - [x] Theme switcher in Storybook
 - [x] Library build and exports
-- [ ] Streaming application
+- [x] Streaming application (live at elbluesesfemenino.cl)
+- [x] Portfolio (sorayasacaan.com)
 - [ ] Observatory application
