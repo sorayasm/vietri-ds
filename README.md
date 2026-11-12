@@ -46,7 +46,7 @@ Each theme has its own identity.
 | Theme         | Brand colors                                                        | Notes |
 | ------------- | ------------------------------------------------------------------- | ----- |
 | `editorial`   | black `#000000`, gold `#DBAC5B`, white `#FFFFFF`, light gold `#FDD07A` | Gold is used as a fill with black text. Bronze `#7A5718` carries gold-colored text. |
-| `streaming`   | night `#20123A`, violet `#693BCC`, lavender `#816CB2`, magenta `#CB1F9C`, cyan `#1CDAF3` | Dark theme. Cyan is the primary action; footers and banners use a soft gradient from violet to lavender. |
+| `streaming`   | night `#20123A`, burnt orange `#C8460B`, light orange `#F4793F`, deep teal `#0F5C66`, violet `#693BCC`, lavender `#816CB2`, magenta `#CB1F9C` | Dark theme. Orange carries actions: the burnt orange fills buttons (white text), the lighter one colors links and outlines. Footers and banners use a calm gradient from deep teal to purple. |
 | `observatory` | teal `#027381`, cyan `#0EB9CB`, amber `#FFC23D`, coral `#FF7751`, vermilion `#F33829`, crimson `#C41E32`, purple `#4A0875` | Light theme. Teal carries actions, purple the footer. Cyan, amber, coral and vermilion are fills for charts and highlights. |
 
 Every palette is a typed `ThemeColors` object (`editorialColors`, `streamingColors`, `observatoryColors`). The active theme's palette is available inside components as `theme.vietri.color`.
@@ -55,7 +55,7 @@ Brand colors that cannot carry text on their own (gold on white, violet on deep 
 
 ## Fills and gradients
 
-Almost every fill is a solid color. The exception is the **surface** of the Streaming theme (footers and banners), which is a soft gradient from violet `#693BCC` to lavender. The lavender end is `#7A64AE`, the supplied `#816CB2` darkened a hair: with the exact color, white text reaches 4.45:1, just under the 4.5:1 minimum.
+Almost every fill is a solid color. The exception is the **surface** of the Streaming theme (footers and banners), which is a calm gradient from a deep teal (`#0F5C66`) to the purple of the cards (`#2D1B50`). White text keeps 7:1 or more at both ends.
 
 A fill is described by a pair of colors in `ThemeColors` (`action`, `actionHover`, `surface`). A flat fill repeats the same color twice, and a gradient uses two different ones. They reach components through `theme.vietri.gradient`:
 
@@ -64,9 +64,24 @@ A fill is described by a pair of colors in `ThemeColors` (`action`, `actionHover
 
 The tests check contrast at **both ends** of every fill, so a gradient never hides a low-contrast corner. `ThemeColors.glow` can also add soft decorative lights to the footer; it is `null` in every theme today.
 
+## Interactive color
+
+In the Streaming theme everything you can press is orange, in the version that reads best where it sits:
+
+| Element | Color |
+| --- | --- |
+| Button fill | burnt orange `#C8460B`, white text (4.8:1) |
+| Outlined and text buttons, arrows of `ContentRail`, focus rings | light orange `#F4793F` (6.3:1 on the page, 5.5:1 on cards) |
+| `NavBar` links (with `accentLinks`) | light orange; the current page is white and underlined |
+| Cards and episode lists | the border turns orange on hover and focus |
+
+Two places do **not** use orange, on purpose: the secondary button of a `Hero` (it sits over a photo, where only white text is guaranteed to read) and the links of the `Footer` (orange on the teal footer gives 2.8:1; they are white and underlined). Color is never the only clue: links in a navigation mark the current page with `aria-current` and an underline, and inline links keep their underline.
+
+`NavBar` keeps muted links by default, so the other themes do not change. Pass `accentLinks` to use the primary color, only in a theme where it reads as text on the page background.
+
 ## Hero with an image
 
-`Hero` accepts an `image` (a background picture). A dark layer (`theme.vietri.color.scrim`) sits over it and the text stays in the left 60%, where that layer is at least 86% opaque, so the text keeps WCAG AA contrast **whatever the photo**, even a pure white one (a test checks it). If the image fails to load, the theme surface shows instead. The image is decorative: do not put information in it.
+`Hero` accepts an `image` (a background picture). A dark layer (`theme.vietri.color.scrim`) sits over it and the text stays in the left 60%, where that layer is at least 74% opaque, so the text keeps WCAG AA contrast **whatever the photo**, even a pure white one (a test checks it). If the image fails to load, the theme surface shows instead. The image is decorative: do not put information in it.
 
 ```tsx
 <Hero

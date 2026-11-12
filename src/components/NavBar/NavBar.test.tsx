@@ -97,6 +97,23 @@ describe("NavBar on mobile", () => {
   });
 });
 
+describe("NavBar with accent links", () => {
+  it("keeps the links, the current page and the navigation semantics", () => {
+    mockDesktop();
+    renderWithTheme(<NavBar brand="Soraya Sacaan" links={links} accentLinks />);
+    expect(screen.getByRole("navigation", { name: "Main" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Projects" })).toHaveAttribute("aria-current", "page");
+    expect(screen.getByRole("link", { name: "Contact" })).not.toHaveAttribute("aria-current");
+  });
+
+  it("works in the mobile menu too", async () => {
+    renderWithTheme(<NavBar brand="Soraya Sacaan" links={links} accentLinks />);
+    await userEvent.click(screen.getByRole("button", { name: "Menu" }));
+    expect(await screen.findByRole("link", { name: "About" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Close menu" })).toBeInTheDocument();
+  });
+});
+
 describe("NavBar width", () => {
   it("limits the content to the large width by default", () => {
     const { container } = renderWithTheme(<NavBar brand="Soraya Sacaan" links={links} />);

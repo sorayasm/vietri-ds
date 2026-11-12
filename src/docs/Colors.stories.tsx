@@ -80,7 +80,7 @@ export const Palettes: Story = {
       )}
       {section(
         "Streaming — El Blues es Femenino",
-        "Deep purple with violet, lavender, magenta and cyan. Cyan is the primary action; the footer and banners use a soft gradient between the two violets.",
+        "Deep purple with orange, teal, violet, lavender and magenta. A burnt orange fills the buttons (white text) and a lighter orange colors links and outlines; the footer and banners use a calm gradient from a deep teal to purple.",
         streamingColors
       )}
       {section(

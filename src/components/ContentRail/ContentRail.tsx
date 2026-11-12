@@ -67,10 +67,10 @@ export function ContentRail({
         </Typography>
         <Stack direction="row" spacing={1} alignItems="center">
           {action}
-          <IconButton aria-label={previousLabel} onClick={() => scrollBy(-1)}>
+          <IconButton color="primary" aria-label={previousLabel} onClick={() => scrollBy(-1)}>
             <Icon icon={ChevronLeft} />
           </IconButton>
-          <IconButton aria-label={nextLabel} onClick={() => scrollBy(1)}>
+          <IconButton color="primary" aria-label={nextLabel} onClick={() => scrollBy(1)}>
             <Icon icon={ChevronRight} />
           </IconButton>
         </Stack>

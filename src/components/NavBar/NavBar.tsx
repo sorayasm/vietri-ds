@@ -38,6 +38,13 @@ export interface NavBarProps {
    * let it span the whole width.
    */
   maxWidth?: Breakpoint | false;
+  /**
+   * Shows the links in the theme's primary color. The page you are on stays in
+   * the text color and is underlined, so color is not the only clue. Use it when
+   * the primary color reads as text on the page background (true in the
+   * Streaming theme). Default false: muted links.
+   */
+  accentLinks?: boolean;
 }
 
 function MenuIcon() {
@@ -51,21 +58,36 @@ function MenuIcon() {
 function NavLinkItem({
   link,
   onClick,
+  accent = false,
 }: {
   link: NavLink;
   onClick?: () => void;
+  accent?: boolean;
 }) {
+  const current = Boolean(link.current);
   return (
     <Link
       href={link.href}
-      underline="none"
-      aria-current={link.current ? "page" : undefined}
+      // With accent links, the current page is underlined and the others underline on hover.
+      underline={accent ? (current ? "always" : "hover") : "none"}
+      aria-current={current ? "page" : undefined}
       onClick={onClick}
-      sx={{
-        color: link.current ? "text.primary" : "text.secondary",
-        fontWeight: link.current ? 600 : 500,
-        "&:hover": { color: "text.primary" },
-      }}
+      sx={(theme) => ({
+        color: accent
+          ? current
+            ? theme.palette.text.primary
+            : theme.palette.primary.main
+          : current
+            ? theme.palette.text.primary
+            : theme.palette.text.secondary,
+        fontWeight: current ? 600 : 500,
+        ...(accent && current && {
+          textDecorationColor: theme.palette.primary.main,
+          textDecorationThickness: 2,
+          textUnderlineOffset: 8,
+        }),
+        ...(!accent && { "&:hover": { color: theme.palette.text.primary } }),
+      })}
     >
       {link.label}
     </Link>
@@ -81,6 +103,7 @@ export function NavBar({
   menuLabel = "Menu",
   closeLabel = "Close menu",
   maxWidth = "lg",
+  accentLinks = false,
 }: NavBarProps) {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"), { noSsr: true });
@@ -129,7 +152,7 @@ export function NavBar({
                 >
                   {links.map((link) => (
                     <li key={link.href}>
-                      <NavLinkItem link={link} />
+                      <NavLinkItem link={link} accent={accentLinks} />
                     </li>
                   ))}
                 </Stack>
@@ -141,7 +164,7 @@ export function NavBar({
               {actions}
               <IconButton
                 edge="end"
-                color="inherit"
+                color={accentLinks ? "primary" : "inherit"}
                 aria-label={menuLabel}
                 aria-expanded={open}
                 onClick={() => setOpen(true)}
@@ -157,7 +180,7 @@ export function NavBar({
         <Drawer anchor="right" open={open} onClose={close}>
           <Box sx={{ width: 280, p: 3 }}>
             <Stack alignItems="flex-end" sx={{ mb: 3 }}>
-              <Button variant="text" color="secondary" onClick={close}>
+              <Button variant="text" color={accentLinks ? "primary" : "secondary"} onClick={close}>
                 {closeLabel}
               </Button>
             </Stack>
@@ -169,7 +192,7 @@ export function NavBar({
               >
                 {links.map((link) => (
                   <li key={link.href}>
-                    <NavLinkItem link={link} onClick={close} />
+                    <NavLinkItem link={link} onClick={close} accent={accentLinks} />
                   </li>
                 ))}
               </Stack>

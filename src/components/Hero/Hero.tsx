@@ -20,8 +20,8 @@ export interface HeroProps {
   /**
    * Address of a background image. It is decorative (it carries no text
    * alternative), so do not put information in it. A dark layer (the theme's
-   * `scrim`) sits over it and the text stays in the area it covers best, so the
-   * text keeps AA contrast whatever the photo. If the image fails to load, the
+   * `scrim`) sits over it, at least 74% opaque under the text, so the text keeps
+   * AA contrast whatever the photo, even a pure white one. If the image fails to load, the
    * theme surface shows instead.
    */
   image?: string;
@@ -55,7 +55,7 @@ export function Hero({
         const scrim = theme.vietri.color.scrim;
         const surface = theme.vietri.gradient.surface;
         // The bottom of the image melts into the dark layer color.
-        const fade = `linear-gradient(0deg, ${scrim} 0%, ${alpha(scrim, 0)} 28%)`;
+        const fade = `linear-gradient(0deg, ${scrim} 0%, ${alpha(scrim, 0)} 18%)`;
         const photo = `url(${JSON.stringify(image ?? "")})`;
 
         return {
@@ -68,8 +68,8 @@ export function Hero({
             ? {
                 // Layers, from top to bottom: dark layer, bottom fade, photo, surface.
                 backgroundImage: {
-                  xs: `linear-gradient(${alpha(scrim, 0.88)}, ${alpha(scrim, 0.88)}), ${fade}, ${photo}, ${surface}`,
-                  md: `linear-gradient(90deg, ${alpha(scrim, 0.92)} 0%, ${alpha(scrim, 0.86)} 62%, ${alpha(scrim, 0.25)} 100%), ${fade}, ${photo}, ${surface}`,
+                  xs: `linear-gradient(${alpha(scrim, 0.8)}, ${alpha(scrim, 0.8)}), ${fade}, ${photo}, ${surface}`,
+                  md: `linear-gradient(90deg, ${alpha(scrim, 0.84)} 0%, ${alpha(scrim, 0.74)} 62%, ${alpha(scrim, 0.1)} 100%), ${fade}, ${photo}, ${surface}`,
                 },
                 backgroundSize: "cover",
                 backgroundPosition: imagePosition,
@@ -95,7 +95,7 @@ export function Hero({
           sx={{
             alignItems: center ? "center" : "flex-start",
             textAlign: align,
-            // With an image the text stays in the left 60%, where the dark layer is strongest.
+            // With an image the text stays in the left 60%, where the dark layer is at its strongest.
             ...(hasImage && { maxWidth: { md: "60%" }, ...(center && { mx: "auto" }) }),
           }}
         >

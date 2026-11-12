@@ -4,6 +4,39 @@ All notable changes to Vietri DS are listed here. The project follows
 [Semantic Versioning](https://semver.org/); while the version is 0.x, a minor
 version may include breaking changes.
 
+## 0.3.2
+
+### Added
+
+- `NavBar` accepts `accentLinks`: the links use the primary color and the current
+  page is underlined. Off by default, so other themes do not change.
+
+### Changed
+
+- `ContentRail` arrows use the primary color.
+- Large buttons (`size="large"`) have more room: 52px tall with 32px at the
+  sides (they were about 42px with 22px), and every variant of that size is
+  exactly the same height.
+- Streaming theme: the layer over a hero photo is a deep lilac (`#3B2562`)
+  instead of the near-black purple, so the photo shows through with more color
+  and light. White text still keeps AA contrast over any photo.
+- Streaming theme: the primary action is orange again, in two versions: a
+  burnt orange (`#C8460B`) fills the buttons and holds white text at 4.8:1 (the
+  brand orange `#F35F1C` only reaches 3.2:1 with white), and a lighter orange
+  (`#F4793F`) colors links, outlines and focus rings on the dark backgrounds
+  (6.3:1 on the night background). The bright cyan of 0.3.0 is gone.
+  Palette keys: `brand.cyan` is now `brand.orange`, `brand.teal` is the deep teal
+  of the footer, and `derived.cyanHover` is replaced by `derived.orangeText`,
+  `derived.orangeDeep` and `derived.orangeHover`. `onAction` is white.
+- Streaming theme: the footer and banner surface is now a calm gradient from a
+  deep teal (`#0F5C66`) to the purple of the cards (`#2D1B50`), instead of the
+  bright violet-to-lavender one. White text has 7:1 or more at both ends (the
+  old gradient had the lowest contrast of the palette). The palette gains
+  `brand.teal` and loses `derived.lavenderDeep`.
+- `Hero` with an image: the dark layer is lighter (84% to 74% under the text,
+  fading to 10% on the right, was 92% to 86% and 25%) so the photo shows. The
+  text still keeps AA contrast over any photo, even a pure white one.
+
 ## 0.3.1
 
 ### Added

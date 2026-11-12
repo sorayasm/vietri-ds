@@ -42,9 +42,9 @@ describe("fills and gradients", () => {
     expect(isFlat(streamingColors.surface)).toBe(false);
   });
 
-  it("the streaming gradient goes from violet to lavender", () => {
-    expect(streamingColors.surface[0]).toBe(streamingColors.brand.violet);
-    expect(streamingColors.surface[1]).toBe(streamingColors.derived.lavenderDeep);
+  it("the streaming gradient goes from teal to the purple of the cards", () => {
+    expect(streamingColors.surface[0]).toBe(streamingColors.brand.teal);
+    expect(streamingColors.surface[1]).toBe(streamingColors.derived.nightRaised);
   });
 
   it("no theme draws decorative glows", () => {
@@ -88,15 +88,32 @@ function overWhite(color: string, amount: number): string {
 }
 
 describe("text over a hero image (WCAG AA, 4.5:1)", () => {
-  // Under the text the dark layer is at least 86% opaque. We test 85%, over the worst
+  // Under the text the dark layer is at least 74% opaque. We test 70%, over the worst
   // possible photo: pure white.
   it.each(cases)("%s: text stays readable over a white photo", (_name, colors) => {
-    const worst = overWhite(colors.scrim, 0.85);
+    const worst = overWhite(colors.scrim, 0.7);
     expect(getContrastRatio(colors.onSurface, worst)).toBeGreaterThanOrEqual(AA);
     expect(getContrastRatio(colors.onSurfaceSoft, worst)).toBeGreaterThanOrEqual(AA);
   });
 
   it.each(cases)("%s: the dark layer is a dark color", (_name, colors) => {
     expect(getContrastRatio(colors.onSurface, colors.scrim)).toBeGreaterThanOrEqual(AA);
+  });
+});
+
+describe("orange as the interactive color of the streaming theme", () => {
+  it("as text (links, outlines, arrows) it reads on the page and on the cards", () => {
+    expect(getContrastRatio(streamingColors.primary, streamingColors.bg)).toBeGreaterThanOrEqual(AA);
+    expect(getContrastRatio(streamingColors.primary, streamingColors.paper)).toBeGreaterThanOrEqual(AA);
+  });
+
+  it("the dark label on the light orange (primary) is readable", () => {
+    expect(getContrastRatio(streamingColors.onPrimary, streamingColors.primary)).toBeGreaterThanOrEqual(AA);
+  });
+
+  it("the button fill holds white text, also on hover", () => {
+    for (const fill of [...streamingColors.action, ...streamingColors.actionHover]) {
+      expect(getContrastRatio(streamingColors.onAction, fill)).toBeGreaterThanOrEqual(AA);
+    }
   });
 });

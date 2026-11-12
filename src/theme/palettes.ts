@@ -3,7 +3,7 @@
  *
  * Each theme (editorial, streaming, observatory) has its own identity:
  *   - editorial    → the portfolio: black, white and gold
- *   - streaming    → "El Blues es Femenino": deep purple, violet, lavender, magenta, cyan
+ *   - streaming    → "El Blues es Femenino": deep purple, orange, teal, violet, lavender, magenta
  *   - observatory  → the Mujeres del Blues Observatory: teal, cyan, amber, coral, red, purple
  *
  * Every pair that carries text meets WCAG AA (4.5:1). Brand colors that are
@@ -131,9 +131,13 @@ export const editorialColors: ThemeColors = {
 };
 
 /**
- * El Blues es Femenino — deep purple, violet, lavender, magenta and cyan.
- * Fills are flat, except the surface (footer and banners): a soft gradient
- * between two violets.
+ * El Blues es Femenino — deep purple, orange, teal, violet, lavender and magenta.
+ * Fills are flat, except the surface (footer and banners): a calm gradient from
+ * a deep teal to the raised purple of the cards.
+ *
+ * Orange carries the actions, in two versions: a burnt orange for button fills
+ * (white text on it) and a lighter one for links, outlines and focus rings on the
+ * dark backgrounds. The brand orange (#F35F1C) is too light for white text.
  */
 export const streamingColors: ThemeColors = {
   mode: "dark",
@@ -142,17 +146,21 @@ export const streamingColors: ThemeColors = {
   ink: "#FFFFFF",
   inkSoft: "#D5CAEB",
   line: "rgba(255, 255, 255, 0.14)",
-  primary: "#1CDAF3",
+  // Orange as text, outline and focus ring on dark backgrounds (6.3:1 on night, 5.5:1 on cards).
+  primary: "#F4793F",
   onPrimary: "#20123A",
   secondary: "#B99BFF",
   onSecondary: "#20123A",
-  action: flat("#1CDAF3"),
-  actionHover: flat("#6AE9FA"),
-  onAction: "#20123A",
-  // Violet to lavender. The lavender end is #816CB2 darkened a hair (#7A64AE):
-  // the exact #816CB2 gives white text 4.45:1, just under the 4.5:1 minimum.
-  surface: ["#693BCC", "#7A64AE"],
-  scrim: "#20123A",
+  // Button fill: a burnt orange that holds white text at 4.8:1 (the brand orange gives 3.2:1).
+  action: flat("#C8460B"),
+  actionHover: flat("#B63F0A"),
+  onAction: "#FFFFFF",
+  // Deep teal to the purple of the cards: dark and calm, with 7:1 or more for white text.
+  // (The earlier violet-to-lavender gradient was bright and had the lowest contrast.)
+  surface: ["#0F5C66", "#2D1B50"],
+  // The layer over a hero photo: a deep lilac, the lightest one that still gives
+  // AA contrast to white text over a pure white photo (a deep purple was too dark).
+  scrim: "#3B2562",
   onSurface: "#FFFFFF",
   onSurfaceSoft: "#F7F3FF",
   chip: "#3C2866",
@@ -170,18 +178,23 @@ export const streamingColors: ThemeColors = {
     night: "#20123A",
     violet: "#693BCC",
     lavender: "#816CB2",
+    /** The deep teal of the footer and banners. */
+    teal: "#0F5C66",
     magenta: "#CB1F9C",
-    cyan: "#1CDAF3",
+    /** The brand orange. Too light for white text: use it as a decoration, not under a label. */
+    orange: "#F35F1C",
   },
   derived: {
-    /** Lavender darkened to carry white text at 4.5:1 (the end of the surface gradient). */
-    lavenderDeep: "#7A64AE",
     /** Violet that reads as text on the night background (7.6:1). */
     lilac: "#B99BFF",
     /** Raised surface over night. */
     nightRaised: "#2D1B50",
-    /** Hovered primary action (12:1 with the dark text). */
-    cyanHover: "#6AE9FA",
+    /** Orange for text and outlines on dark backgrounds. */
+    orangeText: "#F4793F",
+    /** Burnt orange of the button fill (white text at 4.8:1). */
+    orangeDeep: "#C8460B",
+    /** Hovered button fill, darker (white text at 5.8:1). */
+    orangeHover: "#B63F0A",
   },
 };
 

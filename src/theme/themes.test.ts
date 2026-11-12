@@ -55,9 +55,9 @@ describe("brand colors", () => {
     expect(editorialColors.action[0]).toBe(editorialColors.brand.gold);
   });
 
-  it("streaming uses the deep purple as background and cyan as primary", () => {
+  it("streaming uses the deep purple as background and orange as primary", () => {
     expect(streamingTheme.palette.background.default).toBe("#20123A");
-    expect(streamingTheme.palette.primary.main).toBe("#1CDAF3");
+    expect(streamingTheme.palette.primary.main).toBe("#F4793F");
   });
 
   it("observatory uses teal as primary and deep purple as secondary", () => {

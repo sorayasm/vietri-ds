@@ -24,13 +24,24 @@ export const components: ThemeOptions["components"] = {
   MuiButton: {
     defaultProps: { disableElevation: true },
     styleOverrides: {
-      root: ({ theme }) => ({
-        borderRadius: tokens.radius.md,
-        "&:focus-visible": {
-          outline: `2px solid ${theme.palette.primary.main}`,
-          outlineOffset: 2,
-        },
-      }),
+      root: ({ theme, ownerState }) => {
+        // An outlined button has a 1px border: take it from the padding so that
+        // every variant of the same size is exactly as tall and as wide.
+        const border = ownerState.variant === "outlined" ? 1 : 0;
+        return {
+          borderRadius: tokens.radius.md,
+          // A generous "large" button, for the main action of a banner.
+          ...(ownerState.size === "large" && {
+            minHeight: 52,
+            padding: `${12 - border}px ${32 - border}px`,
+            fontSize: "1rem",
+          }),
+          "&:focus-visible": {
+            outline: `2px solid ${theme.palette.primary.main}`,
+            outlineOffset: 2,
+          },
+        };
+      },
       // Primary action fill. Flat in most themes, a soft gradient in the
       // Observatory. The text color meets AA at both ends of the fill.
       containedPrimary: ({ theme }) => ({
